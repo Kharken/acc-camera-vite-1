@@ -1,0 +1,19 @@
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+  font-size: 2rem;
+  color: #000000;
+}
+
+
+.link{
+  text-decoration: underline;
+}
+
+.logo{
+  margin-top: 20px;
+  margin-left: 20px;
+}

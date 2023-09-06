@@ -1,0 +1,86 @@
+{
+  "hash": "f86f5fcf",
+  "browserHash": "b32bd632",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "9c45bde9",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "ecde4ad0",
+      "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/react-redux/es/index.js",
+      "file": "react-redux.js",
+      "fileHash": "321e0fd5",
+      "needsInterop": false
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/index.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "6b319abc",
+      "needsInterop": false
+    },
+    "@reduxjs/toolkit": {
+      "src": "../../node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js",
+      "file": "@reduxjs_toolkit.js",
+      "fileHash": "683e34f8",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "630da086",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "48c01fe8",
+      "needsInterop": true
+    },
+    "dayjs": {
+      "src": "../../node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "435350ca",
+      "needsInterop": true
+    },
+    "dayjs/locale/ru.js": {
+      "src": "../../node_modules/dayjs/locale/ru.js",
+      "file": "dayjs_locale_ru__js.js",
+      "fileHash": "09bdc3df",
+      "needsInterop": true
+    },
+    "react-focus-lock": {
+      "src": "../../node_modules/react-focus-lock/dist/es2015/index.js",
+      "file": "react-focus-lock.js",
+      "fileHash": "0688c0f5",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-RVSLBP3T": {
+      "file": "chunk-RVSLBP3T.js"
+    },
+    "chunk-CFZUHDM6": {
+      "file": "chunk-CFZUHDM6.js"
+    },
+    "chunk-HSBISUVC": {
+      "file": "chunk-HSBISUVC.js"
+    },
+    "chunk-FRNXG5VO": {
+      "file": "chunk-FRNXG5VO.js"
+    },
+    "chunk-ST3U5LCA": {
+      "file": "chunk-ST3U5LCA.js"
+    },
+    "chunk-DFKQJ226": {
+      "file": "chunk-DFKQJ226.js"
+    }
+  }
+}
