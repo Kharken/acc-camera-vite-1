@@ -1,5 +1,7 @@
-const Logo = () => (
-  <a className="header__logo"
+import {LogoProps} from './types/types.ts';
+
+const Logo = ({xlinkHrefProp, classNameProp}: LogoProps) => (
+  <a className={`${classNameProp}__logo`}
     href="index.html"
     aria-label="Переход на главную"
   >
@@ -7,7 +9,7 @@ const Logo = () => (
       height="36"
       aria-hidden="true"
     >
-      <use xlinkHref="#icon-logo"></use>
+      <use xlinkHref={`#icon-logo${xlinkHrefProp}`}></use>
     </svg>
   </a>
 );

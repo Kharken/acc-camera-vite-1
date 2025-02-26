@@ -1,16 +1,12 @@
 
 import Logo from '../../ui/logo';
-import HeaderNav from '../header-nav';
+import HeaderNav from './components/header-nav';
 
 const Header = () => (
   <header className="header" id="header">
     <div className="container">
-      <Logo/>
-      <nav className="main-nav header__main-nav">
-        <ul className="main-nav__list">
-          <HeaderNav/>
-        </ul>
-      </nav>
+      <Logo classNameProp={'header'} xlinkHrefProp={''}/>
+      <HeaderNav/>
     </div>
   </header>
 );
