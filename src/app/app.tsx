@@ -1,11 +1,18 @@
-import Header from '../components/blocks/header';
-import Footer from '../components/blocks/footer';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+
+import CatalogPage from '../pages/catalog-page';
+import AppLayout from '../components/layout/app-layout';
+import ProductPage from '../pages/product-page';
 
 const App = () => (
-  <>
-    <Header/>
-    <Footer/>
-  </>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<AppLayout/>}>
+        <Route index element={<CatalogPage/>}/>
+        <Route path='camera/:id' element={<ProductPage/>}/>
+      </Route>
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;
