@@ -4,7 +4,7 @@ import CatalogPage from '../pages/catalog-page';
 import AppLayout from '../components/layout/app-layout';
 import ProductPage from '../pages/product-page';
 import BasketPage from '../pages/basket-page';
-import {RoutePath} from './routes/routes.ts';
+import {RoutePath} from './route-path/route-path.ts';
 
 const App = () => (
   <BrowserRouter>
