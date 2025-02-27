@@ -1,8 +1,9 @@
 import {LogoProps} from './types/types.ts';
+import {Link} from 'react-router-dom';
 
 const Logo = ({xlinkHrefProp, classNameProp}: LogoProps) => (
-  <a className={`${classNameProp}__logo`}
-    href="index.html"
+  <Link className={`${classNameProp}__logo`}
+    to="/"
     aria-label="Переход на главную"
   >
     <svg width="100"
@@ -11,7 +12,7 @@ const Logo = ({xlinkHrefProp, classNameProp}: LogoProps) => (
     >
       <use xlinkHref={`#icon-logo${xlinkHrefProp}`}></use>
     </svg>
-  </a>
+  </Link>
 );
 
 export default Logo;
