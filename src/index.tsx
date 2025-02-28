@@ -9,8 +9,6 @@ import {Provider} from 'react-redux';
 import {ToastContainer} from 'react-toastify';
 import {fetchCameraListData} from './store/service/api-action/api-action.ts';
 import {ApiRoutes} from './api/api-routes.ts';
-import {useAppSelector} from './app/hooks/hooks.ts';
-import {getCamerasList} from './store/slice/camera-slice/service/camera-selectors.ts';
 
 store.dispatch(fetchCameraListData());
 
@@ -28,4 +26,5 @@ root.render(
 );
 
 console.log(createAPI().get(ApiRoutes.CAMERAS));
-console.log(useAppSelector(getCamerasList));
+
+
