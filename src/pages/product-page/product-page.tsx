@@ -1,31 +1,48 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
-import {getCurrentCamera} from '../../store/slice/camera-slice/service/camera-selectors.ts';
+import {
+  getCurrentCamera,
+  getCurrentCameraLoadingStatus
+} from '../../store/slice/camera-slice/service/camera-selectors.ts';
 import {useEffect, useState} from 'react';
-import {fetchCurrentCamera} from '../../store/service/api-action/api-action.ts';
+import {fetchCurrentCamera, fetchReviewData} from '../../store/service/api-action/api-action.ts';
 import {RoutePath} from '../../app/route-path/route-path.ts';
 import ProductImage from '../../components/ui/product-image';
+import Loader from '../../components/ui/loader';
+import {getReviewLoadingStatus} from '../../store/slice/review-slice/service/review-selectors.ts';
+import Review from '../../components/blocks/review';
 
 const ProductPage = () => {
-  const {id: offerId} = useParams();
+  const {id: cameraId} = useParams();
   const currentCamera = useAppSelector(getCurrentCamera);
+
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const isCurrentCameraLoading = useAppSelector(getCurrentCameraLoadingStatus);
+  const isReviewLoading = useAppSelector(getReviewLoadingStatus);
+
+  const isLoading = isCurrentCameraLoading || isReviewLoading;
+
   useEffect(() => {
-    if (offerId){
-      dispatch(fetchCurrentCamera(offerId));
+    if (cameraId){
+      dispatch(fetchCurrentCamera(cameraId));
+      dispatch(fetchReviewData(cameraId));
     } else {
       navigate(RoutePath.NotFound);
     }
-  }, [offerId, dispatch, navigate]);
+  }, [cameraId, dispatch, navigate]);
 
   const [isActive, setIsActive] = useState<boolean>(true);
 
   const handleClick = () => {
     setIsActive(!isActive);
   };
+
+  if (isLoading) {
+    return <Loader/>;
+  }
 
 
   return (
@@ -145,7 +162,7 @@ const ProductPage = () => {
                         <p className="item-list__text">{currentCamera && currentCamera.category}</p>
                       </li>
                       <li className="item-list"><span className="item-list__title">Тип камеры:</span>
-                        <p className="item-list__text">{currentCamera && currentCamera.category}</p>
+                        <p className="item-list__text">{currentCamera && currentCamera.type}</p>
                       </li>
                       <li className="item-list"><span className="item-list__title">Уровень:</span>
                         <p className="item-list__text">{currentCamera && currentCamera.level}</p>
@@ -171,180 +188,7 @@ const ProductPage = () => {
             <div className="page-content__headed">
               <h2 className="title title--h3">Отзывы</h2>
             </div>
-            <ul className="review-block__list">
-              <li className="review-card">
-                <div className="review-card__head">
-                  <p className="title title--h4">Сергей Горский</p>
-                  <time className="review-card__data"
-                    dateTime="2022-04-13"
-                  >13 апреля
-                  </time>
-                </div>
-                <div className="rate review-card__rate">
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <p className="visually-hidden">Оценка: 5</p>
-                </div>
-                <ul className="review-card__list">
-                  <li className="item-list"><span className="item-list__title">Достоинства:</span>
-                    <p className="item-list__text">Надёжная, хорошо лежит в руке, необычно выглядит</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Недостатки:</span>
-                    <p className="item-list__text">Тяжеловата, сложно найти плёнку</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Комментарий:</span>
-                    <p className="item-list__text">Раз в полгода достаю из-под стекла, стираю пыль, заряжаю — работает
-                      как
-                      часы. Ни у кого из знакомых такой нет, все завидуют) Теперь это жемчужина моей коллекции,
-                      однозначно
-                      стоит своих денег!
-                    </p>
-                  </li>
-                </ul>
-              </li>
-              <li className="review-card">
-                <div className="review-card__head">
-                  <p className="title title--h4">Пётр Матросов</p>
-                  <time className="review-card__data"
-                    dateTime="2022-03-02"
-                  >2 марта
-                  </time>
-                </div>
-                <div className="rate review-card__rate">
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
-                  <p className="visually-hidden">Оценка: 1</p>
-                </div>
-                <ul className="review-card__list">
-                  <li className="item-list"><span className="item-list__title">Достоинства:</span>
-                    <p className="item-list__text">Хорошее пресс-папье</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Недостатки:</span>
-                    <p className="item-list__text">Через 3 дня развалилась на куски</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Комментарий:</span>
-                    <p className="item-list__text">При попытке вставить плёнку сломался механизм открытия отсека,
-                      пришлось
-                      заклеить его изолентой. Начал настраивать фокус&nbsp;— линза провалилась внутрь корпуса. Пока
-                      доставал — отломилось несколько лепестков диафрагмы. От злости стукнул камеру об стол, и рукоятка
-                      треснула пополам. Склеил всё суперклеем, теперь прижимаю ей бумагу. НЕ РЕКОМЕНДУЮ!!!
-                    </p>
-                  </li>
-                </ul>
-              </li>
-              <li className="review-card">
-                <div className="review-card__head">
-                  <p className="title title--h4">Татьяна Кузнецова </p>
-                  <time className="review-card__data"
-                    dateTime="2021-12-30"
-                  >30 декабря
-                  </time>
-                </div>
-                <div className="rate review-card__rate">
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="17"
-                    height="16"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
-                  <p className="visually-hidden">Оценка: 4</p>
-                </div>
-                <ul className="review-card__list">
-                  <li className="item-list"><span className="item-list__title">Достоинства:</span>
-                    <p className="item-list__text">Редкая</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Недостатки:</span>
-                    <p className="item-list__text">Высокая цена</p>
-                  </li>
-                  <li className="item-list"><span className="item-list__title">Комментарий:</span>
-                    <p className="item-list__text">Дорого для портативной видеокамеры, но в моей коллекции как раз не
-                      хватало такого экземпляра. Следов использования нет, доставили в заводской упаковке, выглядит
-                      шикарно!
-                    </p>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <Review/>
             <div className="review-block__buttons">
               <button className="btn btn--purple"
                 type="button"

@@ -41,5 +41,8 @@ export type Camera = {
 export type CameraInitialState = {
   camera: Camera[];
   currentCamera: Camera | undefined;
+  isCameraLoading: boolean;
+  isCurrentCameraLoading: boolean;
+  isReviewLoading: boolean;
 }
 
