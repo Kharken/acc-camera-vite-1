@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
 import {getCurrentCamera} from '../../store/slice/camera-slice/service/camera-selectors.ts';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {fetchCurrentCamera} from '../../store/service/api-action/api-action.ts';
 import {RoutePath} from '../../app/route-path/route-path.ts';
 import ProductImage from '../../components/ui/product-image';
@@ -20,6 +20,12 @@ const ProductPage = () => {
       navigate(RoutePath.NotFound);
     }
   }, [offerId, dispatch, navigate]);
+
+  const [isActive, setIsActive] = useState<boolean>(true);
+
+  const handleClick = () => {
+    setIsActive(!isActive);
+  };
 
 
   return (
@@ -118,17 +124,19 @@ const ProductPage = () => {
               </button>
               <div className="tabs product__tabs">
                 <div className="tabs__controls product__tabs-controls">
-                  <button className="tabs__control"
+                  <button className={`tabs__control ${!isActive ? 'is-active' : ''}`}
                     type="button"
+                    onClick={handleClick}
                   >Характеристики
                   </button>
-                  <button className="tabs__control is-active"
+                  <button className={`tabs__control ${isActive ? 'is-active' : ''}`}
                     type="button"
+                    onClick={handleClick}
                   >Описание
                   </button>
                 </div>
                 <div className="tabs__content">
-                  <div className="tabs__element">
+                  <div className={`tabs__element ${!isActive ? 'is-active' : ''}`}>
                     <ul className="product__tabs-list">
                       <li className="item-list"><span className="item-list__title">Артикул:</span>
                         <p className="item-list__text"> {currentCamera && currentCamera.vendorCode}</p>
@@ -144,7 +152,7 @@ const ProductPage = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="tabs__element is-active">
+                  <div className={`tabs__element ${isActive ? 'is-active' : ''}`}>
                     <div className="product__tabs-text">
                       <p>
                         {currentCamera && currentCamera.description}
