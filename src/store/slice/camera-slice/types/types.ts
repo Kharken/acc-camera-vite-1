@@ -40,5 +40,6 @@ export type Camera = {
 
 export type CameraInitialState = {
   camera: Camera[];
+  currentCamera: Camera | undefined;
 }
 

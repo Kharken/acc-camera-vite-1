@@ -1,7 +1,8 @@
 import {ProductCardProps} from './types/types.ts';
+import {Link} from 'react-router-dom';
 
 const ProductCard = ({props}: ProductCardProps) => {
-  const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount} = props;
+  const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount, id} = props;
 
   return (
     <div className="product-card">
@@ -62,10 +63,10 @@ const ProductCard = ({props}: ProductCardProps) => {
           type="button"
         >Купить
         </button>
-        <a className="btn btn--transparent"
-          href="#"
+        <Link className="btn btn--transparent"
+          to={`camera/${id}`}
         >Подробнее
-        </a>
+        </Link>
       </div>
     </div>
   );

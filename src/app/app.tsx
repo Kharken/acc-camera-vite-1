@@ -5,6 +5,7 @@ import AppLayout from '../components/layout/app-layout';
 import ProductPage from '../pages/product-page';
 import BasketPage from '../pages/basket-page';
 import {RoutePath} from './route-path/route-path.ts';
+import NotFoundPage from '../pages/not-found-page';
 
 const App = () => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ const App = () => (
         <Route path={RoutePath.Camera} element={<ProductPage/>}/>
         <Route path={RoutePath.Basket} element={<BasketPage/>}/>
       </Route>
+      <Route path={RoutePath.NotFound} element={<NotFoundPage/>}/>
     </Routes>
   </BrowserRouter>
 );

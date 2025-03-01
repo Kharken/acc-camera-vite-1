@@ -5,7 +5,6 @@ import ProductCard from './components/product-card';
 
 const Catalog = () => {
   const camerasList = useAppSelector(getCamerasList);
-  console.log(camerasList);
 
   return (
     <div className="catalog__content">

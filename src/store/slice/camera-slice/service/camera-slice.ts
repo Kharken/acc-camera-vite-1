@@ -1,10 +1,11 @@
 import {CameraInitialState} from '../types/types.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {Namespace} from '../../../namespace/namespace.ts';
-import {fetchCameraListData} from '../../../service/api-action/api-action.ts';
+import {fetchCameraListData, fetchCurrentCamera} from '../../../service/api-action/api-action.ts';
 
 const initialState: CameraInitialState = {
-  camera: []
+  camera: [],
+  currentCamera: undefined,
 };
 
 const cameraSlice = createSlice({
@@ -15,6 +16,9 @@ const cameraSlice = createSlice({
     builder
       .addCase(fetchCameraListData.fulfilled, (state, action) => {
         state.camera = action.payload;
+      })
+      .addCase(fetchCurrentCamera.fulfilled, (state, action) => {
+        state.currentCamera = action.payload;
       });
   }
 });
