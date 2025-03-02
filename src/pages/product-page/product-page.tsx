@@ -35,9 +35,14 @@ const ProductPage = () => {
   }, [cameraId, dispatch, navigate]);
 
   const [isActive, setIsActive] = useState<boolean>(true);
+  const [reviewShowCount, setReviewShowCount] = useState<number>(3);
 
-  const handleClick = () => {
+  const handleTabsButtonClick = () => {
     setIsActive(!isActive);
+  };
+
+  const handleReviewShowClick = () => {
+    setReviewShowCount((prevState) => prevState + 3);
   };
 
   if (isLoading) {
@@ -143,12 +148,12 @@ const ProductPage = () => {
                 <div className="tabs__controls product__tabs-controls">
                   <button className={`tabs__control ${!isActive ? 'is-active' : ''}`}
                     type="button"
-                    onClick={handleClick}
+                    onClick={handleTabsButtonClick}
                   >Характеристики
                   </button>
                   <button className={`tabs__control ${isActive ? 'is-active' : ''}`}
                     type="button"
-                    onClick={handleClick}
+                    onClick={handleTabsButtonClick}
                   >Описание
                   </button>
                 </div>
@@ -188,10 +193,11 @@ const ProductPage = () => {
             <div className="page-content__headed">
               <h2 className="title title--h3">Отзывы</h2>
             </div>
-            <Review/>
+            <Review startReviewsCount={reviewShowCount}/>
             <div className="review-block__buttons">
               <button className="btn btn--purple"
                 type="button"
+                onClick={handleReviewShowClick}
               >Показать больше отзывов
               </button>
             </div>
