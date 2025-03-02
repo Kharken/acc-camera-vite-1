@@ -9,7 +9,7 @@ import {fetchCurrentCamera, fetchReviewData} from '../../store/service/api-actio
 import {RoutePath} from '../../app/route-path/route-path.ts';
 import ProductImage from '../../components/ui/product-image';
 import Loader from '../../components/ui/loader';
-import {getReviewLoadingStatus} from '../../store/slice/review-slice/service/review-selectors.ts';
+import {getReviewList, getReviewLoadingStatus} from '../../store/slice/review-slice/service/review-selectors.ts';
 import Review from '../../components/blocks/review';
 
 import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
@@ -17,7 +17,7 @@ import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.
 const ProductPage = () => {
   const {id: cameraId} = useParams();
   const currentCamera = useAppSelector(getCurrentCamera);
-
+  const reviewList = useAppSelector(getReviewList);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const ProductPage = () => {
 
   const [isActive, setIsActive] = useState<boolean>(true);
   const [reviewShowCount, setReviewShowCount] = useState<number>(START_REVIEWS_SHOW_COUNT);
+  const isReviewListLoaded = reviewList && reviewShowCount >= reviewList.length;
 
   const handleTabsButtonClick = () => {
     setIsActive(!isActive);
@@ -200,6 +201,7 @@ const ProductPage = () => {
               <button className="btn btn--purple"
                 type="button"
                 onClick={handleReviewShowClick}
+                disabled={reviewList && isReviewListLoaded}
               >Показать больше отзывов
               </button>
             </div>

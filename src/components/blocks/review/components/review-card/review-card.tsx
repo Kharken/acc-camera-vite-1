@@ -1,8 +1,14 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru.js';
+
+dayjs.locale('ru');
+
 
 import {ReviewCardProps} from './types/types.ts';
 
 const ReviewCard = ({props}: ReviewCardProps) => {
-  const {userName, advantage, disadvantage, rating, review} = props;
+  const {userName, advantage, disadvantage, rating, review, createAt} = props;
+  const dateOfReview = dayjs(createAt).format('DD MMMM');
 
   return(
     <li className="review-card">
@@ -10,7 +16,7 @@ const ReviewCard = ({props}: ReviewCardProps) => {
         <p className="title title--h4">{userName}</p>
         <time className="review-card__data"
           dateTime="2022-04-13"
-        >13 апреля
+        >{dateOfReview}
         </time>
       </div>
       <div className="rate review-card__rate">
