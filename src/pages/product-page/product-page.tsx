@@ -12,6 +12,8 @@ import Loader from '../../components/ui/loader';
 import {getReviewLoadingStatus} from '../../store/slice/review-slice/service/review-selectors.ts';
 import Review from '../../components/blocks/review';
 
+import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
+
 const ProductPage = () => {
   const {id: cameraId} = useParams();
   const currentCamera = useAppSelector(getCurrentCamera);
@@ -35,14 +37,14 @@ const ProductPage = () => {
   }, [cameraId, dispatch, navigate]);
 
   const [isActive, setIsActive] = useState<boolean>(true);
-  const [reviewShowCount, setReviewShowCount] = useState<number>(3);
+  const [reviewShowCount, setReviewShowCount] = useState<number>(START_REVIEWS_SHOW_COUNT);
 
   const handleTabsButtonClick = () => {
     setIsActive(!isActive);
   };
 
   const handleReviewShowClick = () => {
-    setReviewShowCount((prevState) => prevState + 3);
+    setReviewShowCount((prevState) => prevState + REVIEWS_SHOW_COUNT_STEP);
   };
 
   if (isLoading) {
