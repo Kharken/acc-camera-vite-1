@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
 import {
   getCurrentCamera,
@@ -59,8 +59,8 @@ const ProductPage = () => {
         <div className="container">
           <ul className="breadcrumbs__list">
             <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link"
-                href="index.html"
+              <Link className="breadcrumbs__link"
+                to={RoutePath.Index}
               >Главная
                 <svg width="5"
                   height="8"
@@ -68,11 +68,11 @@ const ProductPage = () => {
                 >
                   <use xlinkHref="#icon-arrow-mini"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link"
-                href="catalog.html"
+              <Link className="breadcrumbs__link"
+                to={RoutePath.Index}
               >Каталог
                 <svg width="5"
                   height="8"
@@ -80,7 +80,7 @@ const ProductPage = () => {
                 >
                   <use xlinkHref="#icon-arrow-mini"></use>
                 </svg>
-              </a>
+              </Link>
             </li>
             <li className="breadcrumbs__item"><span className="breadcrumbs__link breadcrumbs__link--active">{currentCamera && currentCamera.name}</span>
             </li>
@@ -198,10 +198,9 @@ const ProductPage = () => {
             </div>
             <Review startReviewsCount={reviewShowCount}/>
             <div className="review-block__buttons">
-              <button className="btn btn--purple"
+              <button className={reviewList && !isReviewListLoaded ? 'btn btn--purple' : 'visually-hidden'}
                 type="button"
                 onClick={handleReviewShowClick}
-                disabled={reviewList && isReviewListLoaded}
               >Показать больше отзывов
               </button>
             </div>
