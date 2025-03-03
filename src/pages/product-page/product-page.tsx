@@ -10,7 +10,7 @@ import {RoutePath} from '../../app/route-path/route-path.ts';
 import ProductImage from '../../components/ui/product-image';
 import Loader from '../../components/ui/loader';
 import {getReviewList, getReviewLoadingStatus} from '../../store/slice/review-slice/service/review-selectors.ts';
-import Review from '../../components/blocks/review';
+import Review from './components/review';
 
 import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
 

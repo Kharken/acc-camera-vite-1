@@ -1,8 +1,8 @@
 import ReviewCard from './components/review-card';
-import {useAppSelector} from '../../../app/hooks/hooks.ts';
-import {getReviewList} from '../../../store/slice/review-slice/service/review-selectors.ts';
+import {useAppSelector} from '../../../../app/hooks/hooks.ts';
+import {getReviewList} from '../../../../store/slice/review-slice/service/review-selectors.ts';
 import {ReviewProps} from './types/types.ts';
-import {getSortedList} from '../../../utils/get-sorted-list.ts';
+import {getSortedList} from '../../../../utils/get-sorted-list.ts';
 import dayjs from 'dayjs';
 
 const Review = ({startReviewsCount}: ReviewProps) => {

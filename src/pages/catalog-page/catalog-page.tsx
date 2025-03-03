@@ -1,4 +1,4 @@
-import Catalog from '../../components/blocks/catalog';
+import Catalog from './components/catalog';
 
 const CatalogPage = () => (
   <>

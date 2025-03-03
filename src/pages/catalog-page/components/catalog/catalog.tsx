@@ -1,5 +1,5 @@
-import {useAppSelector} from '../../../app/hooks/hooks.ts';
-import {getCamerasList} from '../../../store/slice/camera-slice/service/camera-selectors.ts';
+import {useAppSelector} from '../../../../app/hooks/hooks.ts';
+import {getCamerasList} from '../../../../store/slice/camera-slice/service/camera-selectors.ts';
 import ProductCard from './components/product-card';
 
 
