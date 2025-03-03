@@ -195,6 +195,11 @@ const ProductPage = () => {
           <div className="container">
             <div className="page-content__headed">
               <h2 className="title title--h3">Отзывы</h2>
+              <button className="btn visually-hidden"
+                type="button"
+              >
+                Оставить свой отзыв
+              </button>
             </div>
             <Review startReviewsCount={reviewShowCount}/>
             <div className="review-block__buttons">

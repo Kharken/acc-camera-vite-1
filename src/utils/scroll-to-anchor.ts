@@ -1,4 +1,4 @@
-
+import React from 'react';
 
 export const scrollToAnchor = (refElement: React.MutableRefObject<HTMLAnchorElement | null>) => {
   if (refElement.current) {
