@@ -1,17 +1,18 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
-import {useState} from 'react';
+import { useState} from 'react';
 
 const CatalogPage = () => {
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleModalOpenClick = () => {
-    setModalOpen(true);
+    setIsModalOpen(true);
     document.body.classList.add('scroll-lock');
   };
 
   const handleModalCloseClick = () => {
-    setModalOpen(false);
+    setIsModalOpen(false);
+    document.body.classList.remove('scroll-lock');
   };
 
   return (
@@ -71,7 +72,7 @@ const CatalogPage = () => {
           </div>
         </section>
       </div>
-      {isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick}/>}
+      {isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={isModalOpen} />}
     </>
   );
 };

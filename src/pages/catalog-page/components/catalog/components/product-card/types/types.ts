@@ -10,5 +10,6 @@ export type CatalogProps = {
 }
 
 export type CatalogCallItemProps = {
-  handleModalCloseClick: MouseEventHandler<HTMLElement>;
+  handleModalCloseClick: () => void;
+  isModalOpen: boolean;
 }
