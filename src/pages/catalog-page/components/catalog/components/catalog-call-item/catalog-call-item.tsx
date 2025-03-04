@@ -1,4 +1,6 @@
-const CatalogCallItem = () => (
+import {CatalogCallItemProps} from '../product-card/types/types.ts';
+
+const CatalogCallItem = ({handleModalCloseClick}: CatalogCallItemProps) => (
   <div className="modal is-active">
     <div className="modal__wrapper">
       <div className="modal__overlay"></div>
@@ -31,19 +33,20 @@ const CatalogCallItem = () => (
           </div>
         </div>
         <div className="custom-input form-review__item">
-          <label><span className="custom-input__label">Телефон
-            <svg width="9"
-              height="9"
-              aria-hidden="true"
-            >
-              <use xlinkHref="#icon-snowflake"></use>
-            </svg>
-                 </span>
-          <input type="tel"
-            name="user-tel"
-            placeholder="Введите ваш номер"
-            required
-          />
+          <label>
+            <span className="custom-input__label">Телефон
+              <svg width="9"
+                height="9"
+                aria-hidden="true"
+              >
+                <use xlinkHref="#icon-snowflake"></use>
+              </svg>
+            </span>
+            <input type="tel"
+              name="user-tel"
+              placeholder="Введите ваш номер"
+              required
+            />
           </label>
           <p className="custom-input__error">Нужно указать номер</p>
         </div>
@@ -63,6 +66,7 @@ const CatalogCallItem = () => (
         <button className="cross-btn"
           type="button"
           aria-label="Закрыть попап"
+          onClick={handleModalCloseClick}
         >
           <svg width="10"
             height="10"

@@ -1,7 +1,7 @@
 import {ProductCardProps} from './types/types.ts';
 import {Link} from 'react-router-dom';
 
-const ProductCard = ({props}: ProductCardProps) => {
+const ProductCard = ({props, handleModalOpenClick}: ProductCardProps) => {
   const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount, id} = props;
 
   return (
@@ -61,6 +61,7 @@ const ProductCard = ({props}: ProductCardProps) => {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn"
           type="button"
+          onClick={handleModalOpenClick}
         >Купить
         </button>
         <Link className="btn btn--transparent"
