@@ -1,7 +1,12 @@
 import {CatalogCallItemProps} from '../product-card/types/types.ts';
 import {useEffect} from 'react';
+import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
+import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 
-const CatalogCallItem = ({handleModalCloseClick, isModalOpen}: CatalogCallItemProps) => {
+const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: CatalogCallItemProps) => {
+  const camerasList = useAppSelector(getCamerasList);
+
+  const currentActiveCard = camerasList.find((item) => item.id === activeCard);
 
   useEffect(() => {
     const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
@@ -29,26 +34,26 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen}: CatalogCallItemPr
             <div className="basket-item__img">
               <picture>
                 <source type="image/webp"
-                  srcSet="img/content/orlenok.webp, img/content/orlenok@2x.webp 2x"
+                  srcSet={currentActiveCard && `./${currentActiveCard.previewImgWebp}, ../${currentActiveCard.previewImgWebp2x}`}
                 />
-                <img src="img/content/orlenok.jpg"
-                  srcSet="img/content/orlenok@2x.jpg 2x"
+                <img src={currentActiveCard && currentActiveCard.previewImg}
+                  srcSet={currentActiveCard && currentActiveCard.previewImg2x}
                   width="140"
                   height="120"
-                  alt="Фотоаппарат «Орлёнок»"
+                  alt={currentActiveCard && currentActiveCard.name}
                 />
               </picture>
             </div>
             <div className="basket-item__description">
-              <p className="basket-item__title">Фотоаппарат «Орлёнок»</p>
+              <p className="basket-item__title">{currentActiveCard && currentActiveCard.name}</p>
               <ul className="basket-item__list">
                 <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span>
-                  <span className="basket-item__number">O78DFGSD832</span>
+                  <span className="basket-item__number">{currentActiveCard && currentActiveCard.vendorCode}2</span>
                 </li>
-                <li className="basket-item__list-item">Плёночная фотокамера</li>
-                <li className="basket-item__list-item">Любительский уровень</li>
+                <li className="basket-item__list-item">{currentActiveCard && currentActiveCard.type}</li>
+                <li className="basket-item__list-item">{currentActiveCard && currentActiveCard.level} уровень</li>
               </ul>
-              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>18 970 ₽</p>
+              <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{currentActiveCard && currentActiveCard.price} ₽</p>
             </div>
           </div>
           <div className="custom-input form-review__item">

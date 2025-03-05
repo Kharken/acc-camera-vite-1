@@ -1,11 +1,13 @@
 import {ProductCardProps} from './types/types.ts';
 import {Link} from 'react-router-dom';
 
-const ProductCard = ({props, handleModalOpenClick}: ProductCardProps) => {
-  const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount, id} = props;
+const ProductCard = ({props, handleModalOpenClick, handleActiveCardMouseOver}: ProductCardProps) => {
+  const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount, id: cameraId} = props;
 
   return (
-    <div className="product-card">
+    <div className="product-card"
+      onMouseEnter={() => handleActiveCardMouseOver(cameraId)}
+    >
       <div className="product-card__img">
         <picture>
           <source type="image/webp"
@@ -61,11 +63,11 @@ const ProductCard = ({props, handleModalOpenClick}: ProductCardProps) => {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn"
           type="button"
-          onClick={handleModalOpenClick}
+          onClick={() => handleModalOpenClick(cameraId)}
         >Купить
         </button>
         <Link className="btn btn--transparent"
-          to={`camera/${id}`}
+          to={`camera/${cameraId}`}
         >Подробнее
         </Link>
       </div>

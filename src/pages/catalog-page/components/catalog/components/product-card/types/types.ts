@@ -1,15 +1,16 @@
 import {Camera} from '../../../../../../../store/slice/camera-slice/types/types.ts';
-import {MouseEventHandler} from 'react';
 
 export type ProductCardProps = {
   props: Camera;
 } & CatalogProps;
 
 export type CatalogProps = {
-  handleModalOpenClick: MouseEventHandler<HTMLElement>;
+  handleModalOpenClick: (id: number | null) => void;
+  handleActiveCardMouseOver: (id: number | null) => void;
 }
 
 export type CatalogCallItemProps = {
   handleModalCloseClick: () => void;
   isModalOpen: boolean;
+  activeCard: number | null;
 }

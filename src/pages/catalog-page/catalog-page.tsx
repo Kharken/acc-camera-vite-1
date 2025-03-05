@@ -1,19 +1,30 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
 import { useState} from 'react';
+import {InitialModalState} from './types/types.ts';
 
 const CatalogPage = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleModalOpenClick = () => {
-    setIsModalOpen(true);
+  const initialModalState: InitialModalState = {
+    activeCard: null,
+    isModalOpen: false,
+  };
+  const [activeModal, setActiveModal] = useState(initialModalState);
+
+  const handleActiveCardMouseOver = (id: number | null) => {
+    setActiveModal({...activeModal, activeCard: id});
+  };
+
+  const handleModalOpenClick = (id: number | null) => {
+    setActiveModal({...activeModal, activeCard: id, isModalOpen: true});
     document.body.classList.add('scroll-lock');
   };
 
   const handleModalCloseClick = () => {
-    setIsModalOpen(false);
+    setActiveModal({...activeModal, activeCard: null, isModalOpen: false});
     document.body.classList.remove('scroll-lock');
   };
+
 
   return (
     <>
@@ -67,12 +78,12 @@ const CatalogPage = () => {
             <div className="page-content__columns">
               <div className="catalog__aside"><img src="img/banner.png"/>
               </div>
-              <Catalog handleModalOpenClick={handleModalOpenClick} />
+              <Catalog handleModalOpenClick={handleModalOpenClick} handleActiveCardMouseOver={handleActiveCardMouseOver}/>
             </div>
           </div>
         </section>
       </div>
-      {isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={isModalOpen} />}
+      {activeModal.isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={activeModal.isModalOpen} activeCard={activeModal.activeCard} />}
     </>
   );
 };
