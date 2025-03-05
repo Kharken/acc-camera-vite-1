@@ -1,14 +1,20 @@
+
 import {CatalogCallItemProps} from '../product-card/types/types.ts';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 
 const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: CatalogCallItemProps) => {
   const camerasList = useAppSelector(getCamerasList);
-
   const currentActiveCard = camerasList.find((item) => item.id === activeCard);
+  const focusRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+
+    if (isModalOpen && focusRef.current) {
+      focusRef.current.focus();
+    }
+
     const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
         handleModalCloseClick();
@@ -20,7 +26,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
     return () => {
       document.removeEventListener('keydown', handleModalEscapeKeyDown);
     };
-  }, [handleModalCloseClick, isModalOpen]);
+  }, [handleModalCloseClick, isModalOpen, focusRef]);
 
   return (
     <div className="modal is-active">
@@ -70,6 +76,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
                 name="user-tel"
                 placeholder="Введите ваш номер"
                 required
+                ref={focusRef}
               />
             </label>
             <p className="custom-input__error">Нужно указать номер</p>
