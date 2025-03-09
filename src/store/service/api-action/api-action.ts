@@ -4,6 +4,7 @@ import {Camera} from '../../slice/camera-slice/types/types.ts';
 import {ApiRoutes} from '../../../api/api-routes.ts';
 import {toast} from 'react-toastify';
 import {ReviewType} from '../../slice/review-slice/types/types.ts';
+import {PromoCamera} from '../../slice/promo-slice/types/types.ts';
 
 const api = createAPI();
 
@@ -42,5 +43,18 @@ export const fetchReviewData = createAsyncThunk<ReviewType[] | undefined, string
     } catch(error) {
       toast.warn('Error fetching review data');
     }
+  }
+);
+
+export const fetchPromoCameraListData = createAsyncThunk<PromoCamera[], undefined>(
+  'camera/fetchPromoCameraListData',
+  async (): Promise<PromoCamera[]> => {
+    const {data} = await api.get<PromoCamera[]>(ApiRoutes.CAMERAS);
+    try {
+      return data;
+    } catch(error) {
+      toast.warn('Error fetching cameras');
+    }
+    return data;
   }
 );
