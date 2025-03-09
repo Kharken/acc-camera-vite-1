@@ -3,6 +3,7 @@ import {CatalogCallItemProps} from '../product-card/types/types.ts';
 import {useEffect, useRef} from 'react';
 import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
+import PhoneItem from './components';
 
 const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: CatalogCallItemProps) => {
   const camerasList = useAppSelector(getCamerasList);
@@ -77,14 +78,9 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="tel"
-                  name="user-tel"
-                  placeholder="Введите ваш номер"
-                  required
-                  ref={focusRef}
-                />
+                <PhoneItem/>
               </label>
-              <p className="custom-input__error">Нужно указать номер</p>
+
             </div>
             <div className="modal__buttons">
               <button className="btn btn--purple modal__btn modal__btn--fit-width"
