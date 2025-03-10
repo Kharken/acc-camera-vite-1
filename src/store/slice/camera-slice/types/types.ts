@@ -41,8 +41,11 @@ export type Camera = {
 export type CameraInitialState = {
   camera: Camera[];
   currentCamera: Camera | undefined;
+  similarCamera: Camera[] | undefined;
   isCameraLoading: boolean;
   isCurrentCameraLoading: boolean;
-  isReviewLoading: boolean;
+  isSimilarCameraLoading: boolean;
+  activeCard: number | null;
+  isModalOpen: boolean;
 }
 

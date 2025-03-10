@@ -11,10 +11,10 @@ const ProductCard = ({props, handleModalOpenClick, handleActiveCardMouseOver}: P
       <div className="product-card__img">
         <picture>
           <source type="image/webp"
-            srcSet={`${previewImgWebp}, ${previewImgWebp2x}`}
+            srcSet={`../${previewImgWebp}, ../${previewImgWebp2x}`}
           />
-          <img src={previewImg}
-            srcSet={previewImg2x}
+          <img src={`../${previewImg}`}
+            srcSet={`../${previewImg2x}`}
             width="280"
             height="240"
             alt={name}

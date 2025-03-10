@@ -1,12 +1,12 @@
 import {ChangeEvent, useState} from 'react';
 
-const PhoneItem = () => {
-  const [phone, setPhone] = useState('');
+const PhoneNumberItem = () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
 
-  const handleInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPhone(value);
+  const handleInputValueChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value;
+    setPhoneNumber(value);
 
     if (/[^0-9+\-()\s]/.test(value)) {
       setError('Ввод букв не допускается');
@@ -19,8 +19,8 @@ const PhoneItem = () => {
       return;
     }
 
-    const formatRegex = /^(\+7|8)(\s*\(?\s*9\d{2}\s*\)?\s*)(\s*[- ]?\s*\d{3}\s*[- ]?\s*)(\d{2}\s*[- ]?\s*)(\d{2})$/;
-    if (!formatRegex.test(value)) {
+    const symbolsFormatRegex = /^(\+7|8)(\s*\(?\s*9\d{2}\s*\)?\s*)(\s*[- ]?\s*\d{3}\s*[- ]?\s*)(\d{2}\s*[- ]?\s*)(\d{2})$/;
+    if (!symbolsFormatRegex.test(value)) {
       setError('Неверный формат');
       return;
     }
@@ -42,7 +42,7 @@ const PhoneItem = () => {
     <>
       <input
         type="text"
-        value={phone}
+        value={phoneNumber}
         onChange={handleInputValueChange}
         placeholder="+7(9XX)XXX-XX-XX"
       />
@@ -51,4 +51,4 @@ const PhoneItem = () => {
   );
 };
 
-export default PhoneItem;
+export default PhoneNumberItem;

@@ -5,7 +5,11 @@ import {
   getCurrentCameraLoadingStatus
 } from '../../store/slice/camera-slice/service/camera-selectors.ts';
 import {useEffect, useState} from 'react';
-import {fetchCurrentCamera, fetchReviewData} from '../../store/service/api-action/api-action.ts';
+import {
+  fetchCurrentCamera,
+  fetchReviewData,
+  fetchSimilarCameraList
+} from '../../store/service/api-action/api-action.ts';
 import {RoutePath} from '../../app/route-path/route-path.ts';
 import ProductImage from '../../components/ui/product-image';
 import Loader from '../../components/ui/loader';
@@ -13,6 +17,7 @@ import {getReviewList, getReviewLoadingStatus} from '../../store/slice/review-sl
 import Review from './components/review';
 
 import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
+import SimilarCamera from './components/similar-camera';
 
 const ProductPage = () => {
   const {id: cameraId} = useParams();
@@ -31,6 +36,7 @@ const ProductPage = () => {
     if (cameraId){
       dispatch(fetchCurrentCamera(cameraId));
       dispatch(fetchReviewData(cameraId));
+      dispatch(fetchSimilarCameraList(cameraId));
     } else {
       navigate(RoutePath.NotFound);
     }
@@ -208,6 +214,16 @@ const ProductPage = () => {
                 onClick={handleReviewShowClick}
               >Показать больше отзывов
               </button>
+            </div>
+          </div>
+        </section>
+        <section className="product-similar">
+          <div className="container">
+            <h2 className="title title--h3">Похожие товары</h2>
+            <div className="product-similar__slider">
+              <div className="product-similar__slider-list">
+                <SimilarCamera/>
+              </div>
             </div>
           </div>
         </section>

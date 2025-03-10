@@ -11,11 +11,9 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
   const focusRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-
     if (isModalOpen && focusRef.current) {
       focusRef.current.focus();
     }
-
     const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
         handleModalCloseClick();

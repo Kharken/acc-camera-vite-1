@@ -1,27 +1,28 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
-import { useState} from 'react';
-import {InitialModalState} from './types/types.ts';
+import {setActiveCard, openModal, closeModal} from '../../store/slice/camera-slice/service/camera-slice.ts';
+import {getActiveCard, getModalOpenStatus} from '../../store/slice/camera-slice/service/camera-selectors.ts';
+import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
 
 const CatalogPage = () => {
 
-  const initialModalState: InitialModalState = {
-    activeCard: null,
-    isModalOpen: false,
-  };
-  const [activeModal, setActiveModal] = useState(initialModalState);
+  const dispatch = useAppDispatch();
+  const activeCard = useAppSelector(getActiveCard);
+  const isModalOpen = useAppSelector(getModalOpenStatus);
 
   const handleActiveCardMouseOver = (id: number | null) => {
-    setActiveModal({...activeModal, activeCard: id});
+    dispatch(setActiveCard(id));
   };
 
   const handleModalOpenClick = (id: number | null) => {
-    setActiveModal({...activeModal, activeCard: id, isModalOpen: true});
+    dispatch(openModal(id));
+    dispatch(setActiveCard(id));
     document.body.classList.add('scroll-lock');
   };
 
   const handleModalCloseClick = () => {
-    setActiveModal({...activeModal, activeCard: null, isModalOpen: false});
+    dispatch(closeModal());
+    dispatch(setActiveCard(null));
     document.body.classList.remove('scroll-lock');
   };
 
@@ -83,7 +84,7 @@ const CatalogPage = () => {
           </div>
         </section>
       </div>
-      {activeModal.isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={activeModal.isModalOpen} activeCard={activeModal.activeCard} />}
+      {isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={isModalOpen} activeCard={activeCard} />}
     </>
   );
 };

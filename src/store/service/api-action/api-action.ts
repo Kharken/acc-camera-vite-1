@@ -34,6 +34,19 @@ export const fetchCurrentCamera = createAsyncThunk<Camera | undefined, string>(
   }
 );
 
+export const fetchSimilarCameraList = createAsyncThunk<Camera[] | undefined, string>(
+  'camera/fetchSimilarCameraList',
+  async (cameraId: string): Promise<Camera[] | undefined> => {
+    const {data} = await api.get<Camera[] | undefined>(`${ApiRoutes.CAMERAS}/${cameraId}/similar`);
+    try {
+      return data;
+    } catch(error) {
+      toast.warn('Error fetching similar cameras');
+    }
+    return data;
+  }
+);
+
 export const fetchReviewData = createAsyncThunk<ReviewType[] | undefined, string>(
   'review/fetchReviewData',
   async (cameraId: string): Promise<ReviewType[] | undefined> => {
