@@ -68,33 +68,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
                 </p>
               </div>
             </div>
-            <div className="custom-input form-review__item">
-              <label>
-                <span className="custom-input__label">Телефон
-                  <svg width="9"
-                    height="9"
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-snowflake"></use>
-                  </svg>
-                </span>
-                <PhoneItem/>
-              </label>
-
-            </div>
-            <div className="modal__buttons">
-              <button className="btn btn--purple modal__btn modal__btn--fit-width"
-                type="button"
-              >
-                <svg width="24"
-                  height="16"
-                  aria-hidden="true"
-                >
-                  <use xlinkHref="#icon-add-basket"></use>
-                </svg>
-                Заказать
-              </button>
-            </div>
+            <PhoneItem />
             <button className="cross-btn"
               type="button"
               aria-label="Закрыть попап"
