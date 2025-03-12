@@ -36,6 +36,7 @@ const PhoneItem = () => {
     }
 
     setError('');
+    setPhone(cleaned);
   };
 
   return (
@@ -62,6 +63,7 @@ const PhoneItem = () => {
       <div className="modal__buttons">
         <button className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
+          onClick={() => (phone)}
         >
           <svg width="24"
             height="16"
