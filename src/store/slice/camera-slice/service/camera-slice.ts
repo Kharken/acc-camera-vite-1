@@ -8,8 +8,6 @@ const initialState: CameraInitialState = {
   currentCamera: undefined,
   isCameraLoading: false,
   isCurrentCameraLoading: false,
-  isReviewLoading: false,
-
 };
 
 const cameraSlice = createSlice({
