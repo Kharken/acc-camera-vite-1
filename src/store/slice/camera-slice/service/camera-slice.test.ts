@@ -2,6 +2,7 @@ import {describe, expect} from 'vitest';
 import {CameraInitialState} from '../types/types.ts';
 import cameraSlice from '../index.ts';
 import {fetchCameraListData} from '../../../service/api-action/api-action.ts';
+import {getFakeCamera} from '../../mocks/mocks.ts';
 
 describe('Camera Slice', () => {
   it('should return default state with empty action', () => {
@@ -51,7 +52,22 @@ describe('Camera Slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should return "isCameraLoading === false" when action is "fetchCameraListData.rejected" or "fetchCameraListData.fulfilled"', () => {
+  it('should return "isCameraLoading === false" and payload when action is "fetchCameraListData.fulfilled"', () => {
+    const fakeCameraList = getFakeCamera();
+
+    const expectedState: CameraInitialState = {
+      camera: [fakeCameraList],
+      currentCamera: undefined,
+      isCameraLoading: false,
+      isCurrentCameraLoading: false,
+    };
+
+    const resultFulfilled = cameraSlice.reducer(undefined, fetchCameraListData.fulfilled([fakeCameraList], '', undefined));
+
+    expect(resultFulfilled).toEqual(expectedState);
+  });
+  it('should return "isCameraLoading === false" and empty payload when action is "fetchCameraListData.rejected"', () => {
+
     const expectedState: CameraInitialState = {
       camera: [],
       currentCamera: undefined,
@@ -59,10 +75,8 @@ describe('Camera Slice', () => {
       isCurrentCameraLoading: false,
     };
 
-    const resultFulfilled = cameraSlice.reducer(undefined, fetchCameraListData.fulfilled).isCameraLoading;
     const resultRejected = cameraSlice.reducer(undefined, fetchCameraListData.rejected);
 
-    expect(resultFulfilled).toEqual(expectedState.isCameraLoading);
     expect(resultRejected).toEqual(expectedState);
   });
 });
