@@ -2,7 +2,7 @@ import {describe, expect} from 'vitest';
 import {CameraInitialState} from '../types/types.ts';
 import cameraSlice from '../index.ts';
 import {fetchCameraListData} from '../../../service/api-action/api-action.ts';
-import {getFakeCamera} from '../../mocks/mocks.ts';
+import {getFakeCamera} from '../../../mocks/mocks.ts';
 
 describe('Camera Slice', () => {
   it('should return default state with empty action', () => {
