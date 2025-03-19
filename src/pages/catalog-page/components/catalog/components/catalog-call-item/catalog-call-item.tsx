@@ -68,7 +68,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
                 </p>
               </div>
             </div>
-            <PhoneItem />
+            <PhoneItem activeCard={activeCard} />
             <button className="cross-btn"
               type="button"
               aria-label="Закрыть попап"

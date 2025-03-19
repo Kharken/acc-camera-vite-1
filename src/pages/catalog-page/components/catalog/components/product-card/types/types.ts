@@ -5,12 +5,12 @@ export type ProductCardProps = {
 } & CatalogProps;
 
 export type CatalogProps = {
-  handleModalOpenClick: (id: number | null) => void;
-  handleActiveCardMouseOver: (id: number | null) => void;
+  handleModalOpenClick: (id: number) => void;
+  handleActiveCardMouseOver: (id: number) => void;
 }
 
 export type CatalogCallItemProps = {
   handleModalCloseClick: () => void;
   isModalOpen: boolean;
-  activeCard: number | null;
+  activeCard: number;
 }

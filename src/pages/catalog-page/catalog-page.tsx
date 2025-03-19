@@ -6,22 +6,22 @@ import {InitialModalState} from './types/types.ts';
 const CatalogPage = () => {
 
   const initialModalState: InitialModalState = {
-    activeCard: null,
+    activeCard: 0,
     isModalOpen: false,
   };
   const [activeModal, setActiveModal] = useState(initialModalState);
 
-  const handleActiveCardMouseOver = (id: number | null) => {
+  const handleActiveCardMouseOver = (id: number) => {
     setActiveModal({...activeModal, activeCard: id});
   };
 
-  const handleModalOpenClick = (id: number | null) => {
+  const handleModalOpenClick = (id: number) => {
     setActiveModal({...activeModal, activeCard: id, isModalOpen: true});
     document.body.classList.add('scroll-lock');
   };
 
   const handleModalCloseClick = () => {
-    setActiveModal({...activeModal, activeCard: null, isModalOpen: false});
+    setActiveModal({...activeModal, activeCard: 0, isModalOpen: false});
     document.body.classList.remove('scroll-lock');
   };
 

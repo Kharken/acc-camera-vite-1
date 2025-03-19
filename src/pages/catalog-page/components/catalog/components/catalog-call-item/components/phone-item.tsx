@@ -1,8 +1,19 @@
 import {ChangeEvent, useState} from 'react';
+import {postOrderAction} from '../../../../../../../store/service/api-action/api-action.ts';
+import {PhoneItemProps} from '../../../../../types/types.ts';
+import {OrderType} from '../../../../../../../store/service/types/types.ts';
+import {useAppDispatch} from '../../../../../../../app/hooks/hooks.ts';
 
-const PhoneItem = () => {
+const PhoneItem = ({activeCard}: PhoneItemProps) => {
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
+
+  const requestData: OrderType = {
+    camerasIds: [activeCard],
+    coupon: null,
+    tel: phone,
+  };
 
   const handleInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -63,7 +74,7 @@ const PhoneItem = () => {
       <div className="modal__buttons">
         <button className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={() => (phone)}
+          onClick={() => void (dispatch(postOrderAction(requestData)))}
         >
           <svg width="24"
             height="16"

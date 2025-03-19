@@ -1,4 +1,8 @@
 export type InitialModalState = {
-  activeCard: number | null;
+  activeCard: number;
   isModalOpen: boolean;
+}
+
+export type PhoneItemProps = {
+  activeCard: number;
 }

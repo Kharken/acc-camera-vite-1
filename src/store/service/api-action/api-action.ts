@@ -4,6 +4,7 @@ import {Camera} from '../../slice/camera-slice/types/types.ts';
 import {ApiRoutes} from '../../../api/api-routes.ts';
 import {toast} from 'react-toastify';
 import {ReviewType} from '../../slice/review-slice/types/types.ts';
+import {OrderType} from '../types/types.ts';
 
 const api = createAPI();
 
@@ -41,6 +42,18 @@ export const fetchReviewData = createAsyncThunk<ReviewType[] | undefined, string
       return data;
     } catch(error) {
       toast.warn('Error fetching review data');
+    }
+  }
+);
+
+export const postOrderAction = createAsyncThunk<void, OrderType>(
+  'order/postOrder',
+  async (requestData: OrderType): Promise<void> => {
+    const {data} = await api.post<void>(ApiRoutes.ORDERS, requestData);
+    try{
+      return data;
+    } catch(error) {
+      toast.warn('Error posting order');
     }
   }
 );
