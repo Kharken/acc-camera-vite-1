@@ -5,4 +5,5 @@ export type InitialModalState = {
 
 export type PhoneItemProps = {
   activeCard: number;
+  handleModalCloseClick: () => void;
 }

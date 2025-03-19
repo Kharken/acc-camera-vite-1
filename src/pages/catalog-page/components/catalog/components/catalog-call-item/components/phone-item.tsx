@@ -4,7 +4,7 @@ import {PhoneItemProps} from '../../../../../types/types.ts';
 import {OrderType} from '../../../../../../../store/service/types/types.ts';
 import {useAppDispatch} from '../../../../../../../app/hooks/hooks.ts';
 
-const PhoneItem = ({activeCard}: PhoneItemProps) => {
+const PhoneItem = ({activeCard, handleModalCloseClick}: PhoneItemProps) => {
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
@@ -13,6 +13,11 @@ const PhoneItem = ({activeCard}: PhoneItemProps) => {
     camerasIds: [activeCard],
     coupon: null,
     tel: phone,
+  };
+
+  const handleRequestDataClick = () => {
+    void (dispatch(postOrderAction(requestData)));
+    handleModalCloseClick();
   };
 
   const handleInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +79,7 @@ const PhoneItem = ({activeCard}: PhoneItemProps) => {
       <div className="modal__buttons">
         <button className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={() => void (dispatch(postOrderAction(requestData)))}
+          onClick={handleRequestDataClick}
         >
           <svg width="24"
             height="16"
