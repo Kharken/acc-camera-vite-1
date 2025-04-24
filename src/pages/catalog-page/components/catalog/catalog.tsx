@@ -10,10 +10,11 @@ import {getCamerasList} from '../../../../store/slice/camera-slice/service/camer
 
 const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver}: CatalogProps) => {
   const camerasList = useAppSelector(getCamerasList);
-  const [sortParams, setSortParams] = useState<SortParams>({
+  const initialState: SortParams = {
     type: 'price',
     order: 'increase'
-  });
+  };
+  const [sortParams, setSortParams] = useState<SortParams>(initialState);
 
   const sortedCamerasList = [...camerasList].sort((a, b) => {
     const modifier = sortParams.order === 'increase' ? 1 : -1;
