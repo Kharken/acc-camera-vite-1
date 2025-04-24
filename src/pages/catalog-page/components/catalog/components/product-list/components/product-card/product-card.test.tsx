@@ -1,14 +1,14 @@
 import {describe, expect} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {createRouteComponent} from '../../../../../../mocks/create-route-component.tsx';
+import {createRouteComponent} from '../../../../../../../../mocks/create-route-component.tsx';
 import ProductCard from './index.ts';
-import {getFakeCamera} from '../../../../../../store/mocks/mocks.ts';
+import {getFakeCamera} from '../../../../../../../../store/mocks/mocks.ts';
 import userEvent from '@testing-library/user-event';
-import {createWithStoreComponent} from '../../../../../../mocks/create-with-store-component.tsx';
-import CatalogPage from '../../../../index.ts';
-import CatalogCallItem from '../catalog-call-item';
-import {Namespace} from '../../../../../../store/namespace/namespace.ts';
-import {cameraInitialState} from '../../../../../../store/slice/camera-slice/service/camera-slice.ts';
+import {createWithStoreComponent} from '../../../../../../../../mocks/create-with-store-component.tsx';
+import CatalogPage from '../../../../../../index.ts';
+import CatalogCallItem from '../../../catalog-call-item';
+import {Namespace} from '../../../../../../../../store/namespace/namespace.ts';
+import {cameraInitialState} from '../../../../../../../../store/slice/camera-slice/service/camera-slice.ts';
 
 describe('Component: ProductCard', () => {
 

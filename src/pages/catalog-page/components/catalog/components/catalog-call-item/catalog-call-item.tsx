@@ -1,5 +1,5 @@
 import ReactFocusLock from 'react-focus-lock';
-import {CatalogCallItemProps} from '../product-card/types/types.ts';
+import {CatalogCallItemProps} from '../product-list/components/product-card/types/types.ts';
 import {useEffect, useRef} from 'react';
 import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';

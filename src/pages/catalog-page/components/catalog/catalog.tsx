@@ -1,19 +1,14 @@
-import {useAppSelector} from '../../../../app/hooks/hooks.ts';
-import {getCamerasList} from '../../../../store/slice/camera-slice/service/camera-selectors.ts';
-import ProductCard from './components/product-card';
-import {CatalogProps} from './components/product-card/types/types.ts';
+
+import {CatalogProps} from './components/product-list/components/product-card/types/types.ts';
+import ProductList from './components/product-list';
+import SortForm from './components/sort-form';
 
 
-const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver}: CatalogProps) => {
-  const camerasList = useAppSelector(getCamerasList);
-
-  return (
-    <div className="catalog__content" data-testid="catalog-content">
-      <div className="cards catalog__cards">
-        {camerasList && camerasList.map((item) => <ProductCard key={item.id} props={item} handleModalOpenClick={handleModalOpenClick} handleActiveCardMouseOver={handleActiveCardMouseOver}/>) }
-      </div>
-    </div>
-  );
-};
+const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver}: CatalogProps) => (
+  <div className="catalog__content" data-testid="catalog-content">
+    <SortForm/>
+    <ProductList handleModalOpenClick={handleModalOpenClick} handleActiveCardMouseOver={handleActiveCardMouseOver}/>
+  </div>
+);
 
 export default Catalog;
