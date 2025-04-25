@@ -17,7 +17,8 @@ describe('Component: ProductCard', () => {
   const fakeClickHandler = vi.fn();
   const fakeMouseOverHandler = vi.fn();
 
-  const preparedProductCard = createRouteComponent(<ProductCard props={fakeCamera} handleModalOpenClick={fakeClickHandler} handleActiveCardMouseOver={fakeMouseOverHandler}/>);
+  const preparedProductCard = createRouteComponent(
+    <ProductCard props={fakeCamera} handleModalOpenClick={fakeClickHandler} handleActiveCardMouseOver={fakeMouseOverHandler}/>);
 
   it('should renders correctly', () => {
     const productCardTestId = 'product-card';
