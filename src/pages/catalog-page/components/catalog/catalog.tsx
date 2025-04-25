@@ -1,14 +1,17 @@
 
-import {CatalogProps} from './components/product-list/components/product-card/types/types.ts';
+import {CatalogProps, FilterProps} from './components/product-list/components/product-card/types/types.ts';
 import ProductList from './components/product-list';
 import SortForm from './components/sort-form';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {SortParams} from '../../types/types.ts';
-import {useAppSelector} from '../../../../app/hooks/hooks.ts';
+import {useAppDispatch, useAppSelector} from '../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../store/slice/camera-slice/service/camera-selectors.ts';
+import {getFilteredList} from '../../../../utils/get-filtered-list.ts';
+import {setActualCamera} from '../../../../store/slice/camera-slice/service/camera-slice.ts';
 
 
-const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver}: CatalogProps) => {
+const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver, filter}: CatalogProps & FilterProps) => {
+  const dispatch = useAppDispatch();
   const camerasList = useAppSelector(getCamerasList);
   const initialState: SortParams = {
     type: 'price',
@@ -30,17 +33,27 @@ const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver}: CatalogProps
     return 0;
   });
 
+  const sortedAndFilteredCamerasList = getFilteredList(sortedCamerasList, filter);
+
+  useEffect(() => {
+    dispatch(setActualCamera(sortedAndFilteredCamerasList));
+  }, [dispatch, sortedAndFilteredCamerasList]);
 
   return (
     <div className="catalog__content"
       data-testid="catalog-content"
     >
-      <SortForm sortOrder={sortParams.order} sortType={sortParams.type} handleInputChange={setSortParams}/>
-      <ProductList
-        handleModalOpenClick={handleModalOpenClick}
-        handleActiveCardMouseOver={handleActiveCardMouseOver}
-        sortedCamerasList={sortedCamerasList}
+      <SortForm
+        sortOrder={sortParams.order}
+        sortType={sortParams.type}
+        handleInputChange={setSortParams}
       />
+      {sortedAndFilteredCamerasList &&
+        <ProductList
+          handleModalOpenClick={handleModalOpenClick}
+          handleActiveCardMouseOver={handleActiveCardMouseOver}
+          sortedCamerasList={sortedAndFilteredCamerasList}
+        />}
     </div>
   );
 };

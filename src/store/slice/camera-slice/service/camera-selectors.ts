@@ -8,3 +8,5 @@ export const getCurrentCamera = (state: Pick<StateType, Namespace.Camera>) => st
 export const getCameraLoadingStatus = (state: Pick<StateType, Namespace.Camera>) => state[Namespace.Camera].isCameraLoading;
 
 export const getCurrentCameraLoadingStatus = (state: Pick<StateType, Namespace.Camera>) => state[Namespace.Camera].isCurrentCameraLoading;
+
+export const getActualCamera = (state: Pick<StateType, Namespace.Camera>) => state[Namespace.Camera].actualCamera;

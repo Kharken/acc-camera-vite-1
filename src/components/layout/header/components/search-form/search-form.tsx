@@ -1,10 +1,11 @@
-import ReactFocusLock from 'react-focus-lock';
+
 import {useAppSelector} from '../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 import SearchFormItem from './components/search-form-item';
 import {CSSProperties, useEffect, useRef, useState} from 'react';
 import {Camera} from '../../../../../store/slice/camera-slice/types/types.ts';
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const SearchForm = () => {
   const camerasList = useAppSelector(getCamerasList);
@@ -14,26 +15,29 @@ const SearchForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLUListElement>(null);
   const itemsRef = useRef<(HTMLLIElement | null)[]>([]);
+  const navigate = useNavigate();
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-
-    switch(e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        if (searchResults) {
+    if (searchResults){
+      switch(e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
           setCurrentIndex((prev) => Math.min(prev + 1, searchResults.length - 1));
-        }
-        break;
+          break;
 
-      case 'ArrowUp':
-        e.preventDefault();
-        setCurrentIndex((prev) => Math.max(prev - 1, -1));
-        break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setCurrentIndex((prev) => Math.max(prev - 1, -1));
+          break;
 
-      case 'Escape':
-        setSearchResults(null);
-        setCurrentIndex(-1);
-        inputRef.current?.blur();
-        break;
+        case 'Escape':
+          setSearchResults(null);
+          setCurrentIndex(-1);
+          inputRef.current?.blur();
+          break;
+
+        case 'Enter':
+          navigate(`camera/${searchResults[currentIndex].id}`);
+      }
     }
   };
 
@@ -61,40 +65,39 @@ const SearchForm = () => {
   };
 
   return (
-    <ReactFocusLock>
-      <div className={`form-search ${listClassName}`}
-        onKeyDown={handleKeyDown}
-      >
-        <form>
-          <label>
-            <svg className="form-search__icon"
-              width="16"
-              height="16"
-              aria-hidden="true"
-            >
-              <use xlinkHref="#icon-lens"></use>
-            </svg>
-            <input value={value}
-              className="form-search__input"
-              type="text"
-              autoComplete="off"
-              placeholder="Поиск по сайту"
-              onChange={(evt) => {
-                setValue(evt.target.value);
-              }}
+    <div className={`form-search ${listClassName}`}
+      onKeyDown={handleKeyDown}
+    >
+      <form>
+        <label>
+          <svg className="form-search__icon"
+            width="16"
+            height="16"
+            aria-hidden="true"
+          >
+            <use xlinkHref="#icon-lens"></use>
+          </svg>
+          <input value={value}
+            className="form-search__input"
+            type="text"
+            autoComplete="off"
+            placeholder="Поиск по сайту"
+            onChange={(evt) => {
+              setValue(evt.target.value);
+            }}
 
-              ref={inputRef}
-            />
-          </label>
-          <ul className="form-search__select-list" ref={resultsRef}>
-            {searchResults && searchResults.map((item: Camera, index) => (
-              <SearchFormItem key={item.id} id={item.id} value={item.name} ref={(el) => {
-                itemsRef.current[index] = el;
-              }}
-              />))}
-          </ul>
-        </form>
-        {buttonResetVisibilityStyle &&
+            ref={inputRef}
+          />
+        </label>
+        <ul className="form-search__select-list" ref={resultsRef}>
+          {searchResults && searchResults.map((item: Camera, index) => (
+            <SearchFormItem key={item.id} id={item.id} value={item.name} ref={(el) => {
+              itemsRef.current[index] = el;
+            }}
+            />))}
+        </ul>
+      </form>
+      {buttonResetVisibilityStyle &&
           <button
             className="form-search__reset"
             style={buttonResetVisibilityStyle}
@@ -109,8 +112,7 @@ const SearchForm = () => {
             </svg>
             <span className="visually-hidden">Сбросить поиск</span>
           </button>}
-      </div>
-    </ReactFocusLock>
+    </div>
   );
 };
 
