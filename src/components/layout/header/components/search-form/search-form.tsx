@@ -5,6 +5,7 @@ import SearchFormItem from './components/search-form-item';
 import {CSSProperties, useEffect, useRef, useState} from 'react';
 import {Camera} from '../../../../../store/slice/camera-slice/types/types.ts';
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const SearchForm = () => {
   const camerasList = useAppSelector(getCamerasList);
@@ -14,26 +15,29 @@ const SearchForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLUListElement>(null);
   const itemsRef = useRef<(HTMLLIElement | null)[]>([]);
+  const navigate = useNavigate();
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-
-    switch(e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        if (searchResults) {
+    if (searchResults){
+      switch(e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
           setCurrentIndex((prev) => Math.min(prev + 1, searchResults.length - 1));
-        }
-        break;
+          break;
 
-      case 'ArrowUp':
-        e.preventDefault();
-        setCurrentIndex((prev) => Math.max(prev - 1, -1));
-        break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setCurrentIndex((prev) => Math.max(prev - 1, -1));
+          break;
 
-      case 'Escape':
-        setSearchResults(null);
-        setCurrentIndex(-1);
-        inputRef.current?.blur();
-        break;
+        case 'Escape':
+          setSearchResults(null);
+          setCurrentIndex(-1);
+          inputRef.current?.blur();
+          break;
+
+        case 'Enter':
+          navigate(`camera/${searchResults[currentIndex].id}`);
+      }
     }
   };
 
