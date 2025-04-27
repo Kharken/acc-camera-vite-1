@@ -6,7 +6,7 @@ const CameraLevel = ({onChangeHandler, filter}: CameraLevelProps) => {
   const groupValue = CamerasFilterGroups.level;
 
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" data-testid="camera-level">
       <legend className="title title&#45;&#45;h5">{groupValue}</legend>
       {(Object.entries(CamerasLevel) as Array<[keyof typeof CamerasLevel, string]>).map(([key, value]) => (
         <div className="custom-checkbox catalog-filter__item" key={key}>

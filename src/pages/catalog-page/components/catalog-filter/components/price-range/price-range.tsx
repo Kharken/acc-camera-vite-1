@@ -33,10 +33,8 @@ const PriceRange = ({onChangeHandler, filter, setFilter}: PriceRangeProps) => {
     }
   };
 
-  console.log(placeholderLow);
-
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" data-testid="price-range">
       <legend className="title title&#45;&#45;h5">Цена, ₽</legend>
       <div className="catalog-filter__price-range">
         <div className="custom-input">
