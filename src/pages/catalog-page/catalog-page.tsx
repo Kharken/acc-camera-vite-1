@@ -1,9 +1,12 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
-import { useState} from 'react';
-import {InitialModalState} from './types/types.ts';
+import {ChangeEvent, useState} from 'react';
+import {FilterStateProps, InitialModalState} from './types/types.ts';
+import CatalogFilter from './components/catalog-filter';
+import {CamerasCategory, CamerasFilterGroups} from './components/catalog-filter/const/const.ts';
 
 const CatalogPage = () => {
+
 
   const initialModalState: InitialModalState = {
     activeCard: 0,
@@ -25,10 +28,57 @@ const CatalogPage = () => {
     document.body.classList.remove('scroll-lock');
   };
 
+  const initialFilterState: FilterStateProps = {
+    category: '',
+    type: [],
+    level: [],
+    priceFrom: '',
+    priceTo: '',
+  };
+
+  const [filter, setFilter] = useState(initialFilterState);
+
+  const handleFilterInputChange = (evt: ChangeEvent<HTMLInputElement>): void => {
+    const { value, checked, dataset, type, name } = evt.target;
+    if (type === 'radio') {
+      const categoryKey = value as keyof typeof CamerasCategory;
+      setFilter((prevState) => ({
+        ...prevState,
+        category: CamerasCategory[categoryKey],
+      }));
+    } else if (type === 'checkbox' && dataset.groupName === CamerasFilterGroups.type) {
+      setFilter((prevState): FilterStateProps => ({
+        ...prevState,
+        type: checked ? [...prevState.type, value] : prevState.type.filter((item) => item !== value),
+      }));
+    } else if (type === 'checkbox' && evt.target.dataset.groupName === CamerasFilterGroups.level) {
+      setFilter((prevState) => ({
+        ...prevState,
+        level: checked ? [...prevState.level, value] : prevState.level.filter((item) => item !== value),
+      }));
+    } else if (name === 'price') {
+      setFilter((prevState) => ({
+        ...prevState,
+        priceFrom: value,
+      }));
+    } else if (name === 'priceUp') {
+      setFilter((prevState) => ({
+        ...prevState,
+        priceTo: value,
+      }));
+    }
+  };
+
+  const handleFilterResetChange = () => {
+    setFilter(initialFilterState);
+  };
+
 
   return (
     <div data-testid="catalog-page">
-      <div className="banner" data-testid="catalog-page-banner">
+      <div className="banner"
+        data-testid="catalog-page-banner"
+      >
         <picture>
           <source type="image/webp"
             srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x"
@@ -50,7 +100,9 @@ const CatalogPage = () => {
           </a>
         </p>
       </div>
-      <div className="page-content" data-testid="catalog-page-content">
+      <div className="page-content"
+        data-testid="catalog-page-content"
+      >
         <div className="breadcrumbs">
           <div className="container">
             <ul className="breadcrumbs__list">
@@ -76,14 +128,21 @@ const CatalogPage = () => {
           <div className="container">
             <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
             <div className="page-content__columns">
-              <div className="catalog__aside"><img src="img/banner.png"/>
-              </div>
-              <Catalog handleModalOpenClick={handleModalOpenClick} handleActiveCardMouseOver={handleActiveCardMouseOver}/>
+              <CatalogFilter onChangeHandler={handleFilterInputChange} filter={filter} setFilter={setFilter} onChangeResetHandler ={handleFilterResetChange}/>
+              <Catalog handleModalOpenClick={handleModalOpenClick}
+                handleActiveCardMouseOver={handleActiveCardMouseOver}
+                filter={filter}
+              />
             </div>
           </div>
         </section>
       </div>
-      {activeModal.isModalOpen && <CatalogCallItem handleModalCloseClick={handleModalCloseClick} isModalOpen={activeModal.isModalOpen} activeCard={activeModal.activeCard} />}
+      {activeModal.isModalOpen &&
+        <CatalogCallItem
+          handleModalCloseClick={handleModalCloseClick}
+          isModalOpen={activeModal.isModalOpen}
+          activeCard={activeModal.activeCard}
+        />}
     </div>
   );
 };

@@ -10,7 +10,18 @@ describe('Component: Catalog', () => {
   it('should renders correctly', () => {
     const catalogTestId = 'catalog-content';
 
-    const {withStoreComponent: catalog} = createWithStoreComponent(<Catalog handleModalOpenClick={() => vi.fn()} handleActiveCardMouseOver={() => vi.fn()} />, {[Namespace.Camera]: cameraInitialState});
+    const {withStoreComponent: catalog} = createWithStoreComponent(
+      <Catalog
+        handleModalOpenClick={() => vi.fn()}
+        handleActiveCardMouseOver={() => vi.fn()}
+        filter={{
+          category: '',
+          type: [],
+          level: [],
+          priceFrom: '',
+          priceTo: '',
+        }}
+      />, {[Namespace.Camera]: cameraInitialState});
     const preparedCatalogPage = createRouteComponent(catalog);
 
     render(preparedCatalogPage);

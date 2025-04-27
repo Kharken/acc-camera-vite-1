@@ -1,14 +1,20 @@
 import {Camera} from '../../../../../../../../../store/slice/camera-slice/types/types.ts';
-import {SortParams} from '../../../../../../../types/types.ts';
+import {FilterStateProps, SortParams} from '../../../../../../../types/types.ts';
 import {SetStateAction, Dispatch} from 'react';
 
 export type ProductCardProps = {
   props: Camera;
-} & CatalogProps;
+  handleModalOpenClick: (id: number) => void;
+  handleActiveCardMouseOver: (id: number) => void;
+};
 
 export type CatalogProps = {
   handleModalOpenClick: (id: number) => void;
   handleActiveCardMouseOver: (id: number) => void;
+}
+
+export type FilterProps = {
+  filter: FilterStateProps;
 }
 
 export type CatalogCallItemProps = {

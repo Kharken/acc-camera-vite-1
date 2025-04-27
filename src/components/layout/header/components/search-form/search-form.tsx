@@ -1,4 +1,4 @@
-import ReactFocusLock from 'react-focus-lock';
+
 import {useAppSelector} from '../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 import SearchFormItem from './components/search-form-item';
@@ -65,40 +65,39 @@ const SearchForm = () => {
   };
 
   return (
-    <ReactFocusLock>
-      <div className={`form-search ${listClassName}`}
-        onKeyDown={handleKeyDown}
-      >
-        <form>
-          <label>
-            <svg className="form-search__icon"
-              width="16"
-              height="16"
-              aria-hidden="true"
-            >
-              <use xlinkHref="#icon-lens"></use>
-            </svg>
-            <input value={value}
-              className="form-search__input"
-              type="text"
-              autoComplete="off"
-              placeholder="Поиск по сайту"
-              onChange={(evt) => {
-                setValue(evt.target.value);
-              }}
+    <div className={`form-search ${listClassName}`}
+      onKeyDown={handleKeyDown}
+    >
+      <form>
+        <label>
+          <svg className="form-search__icon"
+            width="16"
+            height="16"
+            aria-hidden="true"
+          >
+            <use xlinkHref="#icon-lens"></use>
+          </svg>
+          <input value={value}
+            className="form-search__input"
+            type="text"
+            autoComplete="off"
+            placeholder="Поиск по сайту"
+            onChange={(evt) => {
+              setValue(evt.target.value);
+            }}
 
-              ref={inputRef}
-            />
-          </label>
-          <ul className="form-search__select-list" ref={resultsRef}>
-            {searchResults && searchResults.map((item: Camera, index) => (
-              <SearchFormItem key={item.id} id={item.id} value={item.name} ref={(el) => {
-                itemsRef.current[index] = el;
-              }}
-              />))}
-          </ul>
-        </form>
-        {buttonResetVisibilityStyle &&
+            ref={inputRef}
+          />
+        </label>
+        <ul className="form-search__select-list" ref={resultsRef}>
+          {searchResults && searchResults.map((item: Camera, index) => (
+            <SearchFormItem key={item.id} id={item.id} value={item.name} ref={(el) => {
+              itemsRef.current[index] = el;
+            }}
+            />))}
+        </ul>
+      </form>
+      {buttonResetVisibilityStyle &&
           <button
             className="form-search__reset"
             style={buttonResetVisibilityStyle}
@@ -113,8 +112,7 @@ const SearchForm = () => {
             </svg>
             <span className="visually-hidden">Сбросить поиск</span>
           </button>}
-      </div>
-    </ReactFocusLock>
+    </div>
   );
 };
 

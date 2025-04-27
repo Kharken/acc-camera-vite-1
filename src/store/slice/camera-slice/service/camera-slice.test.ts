@@ -12,6 +12,7 @@ describe('Camera Slice', () => {
 
     const expectedState: CameraInitialState = {
       camera: [],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: false,
       isCurrentCameraLoading: false,
@@ -29,6 +30,7 @@ describe('Camera Slice', () => {
 
     const expectedState: CameraInitialState = {
       camera: [],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: false,
       isCurrentCameraLoading: false,
@@ -42,6 +44,7 @@ describe('Camera Slice', () => {
   it('should return "isCameraLoading === true" when action is "fetchCameraListData.pending"', () => {
     const expectedState: CameraInitialState = {
       camera: [],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: true,
       isCurrentCameraLoading: false,
@@ -57,6 +60,7 @@ describe('Camera Slice', () => {
 
     const expectedState: CameraInitialState = {
       camera: [fakeCameraList],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: false,
       isCurrentCameraLoading: false,
@@ -70,6 +74,7 @@ describe('Camera Slice', () => {
 
     const expectedState: CameraInitialState = {
       camera: [],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: false,
       isCurrentCameraLoading: false,

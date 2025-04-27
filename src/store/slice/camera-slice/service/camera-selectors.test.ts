@@ -7,6 +7,7 @@ describe('Camera Selectors', () => {
   const state: Pick<StateType, Namespace.Camera> = {
     [Namespace.Camera]: {
       camera: [],
+      actualCamera: [],
       currentCamera: undefined,
       isCameraLoading: false,
       isCurrentCameraLoading: false,
