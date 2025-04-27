@@ -8,7 +8,7 @@ const CameraType = ({onChangeHandler, filter}: CameraTypeProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" data-testid="camera-type">
       <legend className="title title&#45;&#45;h5">{groupValue}</legend>
       {(Object.entries(CamerasType) as Array<[keyof typeof CamerasType, string]>).map(([key, value]) => {
         const isDisabled = filter.category === CamerasCategory.videocamera && (key === 'film' || key === 'snapshot');

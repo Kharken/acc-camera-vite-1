@@ -5,7 +5,7 @@ import CameraLevel from './components/camera-level';
 import {CatalogFilterProps} from '../../types/types.ts';
 
 const CatalogFilter = ({onChangeHandler, filter, onChangeResetHandler, setFilter}: CatalogFilterProps) => (
-  <div className="catalog-filter">
+  <div className="catalog-filter" data-testid="catalog-filter">
     <form action="#">
       <h2 className="visually-hidden">Фильтр</h2>
       <PriceRange onChangeHandler={onChangeHandler} setFilter={setFilter} filter={filter}/>

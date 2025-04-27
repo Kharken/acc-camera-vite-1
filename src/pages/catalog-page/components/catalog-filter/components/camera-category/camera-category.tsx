@@ -2,7 +2,7 @@ import {CamerasCategory} from '../../const/const.ts';
 import {CameraCategoryProps} from '../../../../types/types.ts';
 
 const CameraCategory = ({onChangeHandler, filter}: CameraCategoryProps) => (
-  <fieldset className="catalog-filter__block">
+  <fieldset className="catalog-filter__block" data-testid="camera-category">
     <legend className="title title&#45;&#45;h5">Категория</legend>
 
     {(Object.entries(CamerasCategory) as Array<[keyof typeof CamerasCategory, string]>).map(([key, value]) => (
