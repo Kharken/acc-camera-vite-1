@@ -52,7 +52,7 @@ export type PriceRangeProps = {
   setFilter: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }
 
-export type PriceInputState = {
-  priceFrom: string;
-  priceTo: string;
-}
+
+export type FilterInputChangeHandler = (value: React.SetStateAction<FilterStateProps>) => void;
+
+export type EventHandler = (evt: ChangeEvent<HTMLInputElement>) => void;

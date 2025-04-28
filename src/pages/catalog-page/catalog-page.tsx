@@ -1,9 +1,9 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
-import {ChangeEvent, useState} from 'react';
+import {useState} from 'react';
 import {FilterStateProps, InitialModalState} from './types/types.ts';
 import CatalogFilter from './components/catalog-filter';
-import {CamerasCategory, CamerasFilterGroups} from './components/catalog-filter/const/const.ts';
+import {filterInputChangeHandler} from './utils';
 
 const CatalogPage = () => {
 
@@ -38,36 +38,7 @@ const CatalogPage = () => {
 
   const [filter, setFilter] = useState(initialFilterState);
 
-  const handleFilterInputChange = (evt: ChangeEvent<HTMLInputElement>): void => {
-    const { value, checked, dataset, type, name } = evt.target;
-    if (type === 'radio') {
-      const categoryKey = value as keyof typeof CamerasCategory;
-      setFilter((prevState) => ({
-        ...prevState,
-        category: CamerasCategory[categoryKey],
-      }));
-    } else if (type === 'checkbox' && dataset.groupName === CamerasFilterGroups.type) {
-      setFilter((prevState): FilterStateProps => ({
-        ...prevState,
-        type: checked ? [...prevState.type, value] : prevState.type.filter((item) => item !== value),
-      }));
-    } else if (type === 'checkbox' && evt.target.dataset.groupName === CamerasFilterGroups.level) {
-      setFilter((prevState) => ({
-        ...prevState,
-        level: checked ? [...prevState.level, value] : prevState.level.filter((item) => item !== value),
-      }));
-    } else if (name === 'price') {
-      setFilter((prevState) => ({
-        ...prevState,
-        priceFrom: value,
-      }));
-    } else if (name === 'priceUp') {
-      setFilter((prevState) => ({
-        ...prevState,
-        priceTo: value,
-      }));
-    }
-  };
+  const handleFilterInputChange = filterInputChangeHandler(setFilter);
 
   const handleFilterResetChange = () => {
     setFilter(initialFilterState);
