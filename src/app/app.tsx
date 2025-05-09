@@ -26,6 +26,7 @@ const App = () => {
           <Route path={RoutePath.Basket} element={<BasketPage/>}/>
         </Route>
         <Route path={RoutePath.NotFound} element={<NotFoundPage/>}/>
+        <Route path={RoutePath.Basket} element={<BasketPage/>}/>
       </Routes>
     </BrowserRouter>
   );

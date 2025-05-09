@@ -1,6 +1,6 @@
 export enum RoutePath {
   Index = '/',
   Camera = 'camera/:id',
-  Basket = 'basket',
+  Basket = 'card',
   NotFound = '*',
 }

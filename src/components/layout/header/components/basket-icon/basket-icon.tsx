@@ -1,8 +1,10 @@
+import {Link} from 'react-router-dom';
+import {RoutePath} from '../../../../../app/route-path/route-path.ts';
 
 
 const BasketIcon = () => (
-  <a className="header__basket-link"
-    href="#"
+  <Link className="header__basket-link"
+    to={RoutePath.Basket}
   >
     <svg width="16"
       height="16"
@@ -10,7 +12,7 @@ const BasketIcon = () => (
     >
       <use xlinkHref="#icon-basket"></use>
     </svg>
-  </a>
+  </Link>
 );
 
 export default BasketIcon;

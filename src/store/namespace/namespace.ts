@@ -1,7 +1,5 @@
 export enum Namespace {
   Camera = 'Camera',
-  Promo = 'Promo',
+  Basket = 'Basket',
   Review = 'Review',
-  Coupon = 'Coupon',
-  Order = 'Order',
 }
