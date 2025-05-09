@@ -22,3 +22,4 @@ root.render(
   </React.StrictMode>
 );
 
+//TODO - сделать бэкенд и кэширование на node.js

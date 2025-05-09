@@ -23,6 +23,8 @@ const PriceRange = ({onChangeHandler, filter, setFilter}: PriceRangeProps) => {
   const placeholderLow = sortedActualCamerasList[0]?.price.toString() || cameraListData[0]?.price.toString() || PLACEHOLDER_LOW_DEFAULT;
   const placeholderHigh = sortedActualCamerasList[sortedLength - 1]?.price.toString() || cameraListData[dataLength - 1]?.price.toString() || PLACEHOLDER_HIGH_DEFAULT;
 
+
+  // FIXME - переписать на switch-case
   const checkPriceInputValue = (evt: ChangeEvent<HTMLInputElement>) => {
     if (evt.target.name === 'price' && +filter.priceFrom < parseInt(placeholderLow, 10)) {
       setFilter((prevState) => ({...prevState, priceFrom: placeholderLow}));
