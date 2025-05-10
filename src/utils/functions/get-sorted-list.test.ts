@@ -1,6 +1,6 @@
 import {describe, expect} from 'vitest';
 import {getSortedList} from './get-sorted-list.ts';
-import {sortedByDateList, sortedByUserList, sortedByAgeList, mockTestSortedList} from '../mocks/get-sorted-list-test-mocks.ts';
+import {sortedByDateList, sortedByUserList, sortedByAgeList, mockTestSortedList} from '../../mocks/get-sorted-list-test-mocks.ts';
 import dayjs from 'dayjs';
 
 describe('Fucnction: getSortedList', () => {

@@ -1,0 +1,4 @@
+
+const CAMERA_CART_LOCALSTORAGE_KEY = 'cameraSavedList';
+
+export { CAMERA_CART_LOCALSTORAGE_KEY };

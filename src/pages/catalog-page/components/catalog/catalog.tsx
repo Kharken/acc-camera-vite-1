@@ -6,8 +6,9 @@ import {useEffect, useState} from 'react';
 import {SortParams} from '../../types/types.ts';
 import {useAppDispatch, useAppSelector} from '../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../store/slice/camera-slice/service/camera-selectors.ts';
-import {getFilteredList} from '../../../../utils/get-filtered-list.ts';
+import {getFilteredList} from '../../../../utils/functions/get-filtered-list.ts';
 import {setActualCamera} from '../../../../store/slice/camera-slice/service/camera-slice.ts';
+import {Camera} from '../../../../store/slice/camera-slice/types/types.ts';
 
 
 const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver, filter}: CatalogProps & FilterProps) => {
@@ -33,7 +34,7 @@ const Catalog = ({handleModalOpenClick, handleActiveCardMouseOver, filter}: Cata
     return 0;
   });
 
-  const sortedAndFilteredCamerasList = getFilteredList(sortedCamerasList, filter);
+  const sortedAndFilteredCamerasList = getFilteredList(sortedCamerasList, filter) as Camera[];
 
   useEffect(() => {
     dispatch(setActualCamera(sortedAndFilteredCamerasList));

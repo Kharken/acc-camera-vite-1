@@ -1,5 +1,5 @@
 import {FooterNav} from '../types/types.ts';
-import {getEnumTextKeys} from '../../../../../../utils/get-enum-text-keys.ts';
+import {getEnumTextKeys} from '../../../../../../utils/functions/get-enum-text-keys.ts';
 
 enum FooterMenuListOne {
   'Каталог',

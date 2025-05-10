@@ -1,6 +1,6 @@
 import {describe, expect} from 'vitest';
 import {getEnumTextKeys} from './get-enum-text-keys.ts';
-import {enumTextKeysResultOne, enumTextKeysResultTwo, enumTextKeysResultThree, enumTextKeysTestThree, enumTextKeysTestOne, enumTextKeysTestTwo} from '../mocks/get-enum-text-keys-test-mocks.ts';
+import {enumTextKeysResultOne, enumTextKeysResultTwo, enumTextKeysResultThree, enumTextKeysTestThree, enumTextKeysTestOne, enumTextKeysTestTwo} from '../../mocks/get-enum-text-keys-test-mocks.ts';
 
 describe('function: getEnumTextKeys', () => {
   it('should return an array of \' Not-a-number\' keys from every enum', () => {

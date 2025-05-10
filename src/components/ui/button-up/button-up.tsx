@@ -1,5 +1,5 @@
 
-import {scrollToAnchor} from '../../../utils/scroll-to-anchor.ts';
+import {scrollToAnchor} from '../../../utils/functions/scroll-to-anchor.ts';
 import {RefProps} from '../../../app/types/types.ts';
 
 const ButtonUp = ({childRef}: RefProps) => (

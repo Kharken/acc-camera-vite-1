@@ -1,4 +1,4 @@
-import {getEnumTextKeys} from '../../../../../utils/get-enum-text-keys.ts';
+import {getEnumTextKeys} from '../../../../../utils/functions/get-enum-text-keys.ts';
 import MainNavItemTitle from './const';
 import MainNavItem from './components/header-nav-item';
 

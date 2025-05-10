@@ -1,14 +1,16 @@
 import ReactFocusLock from 'react-focus-lock';
 import {CatalogCallItemProps} from '../product-list/components/product-card/types/types.ts';
 import {useEffect, useRef} from 'react';
-import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
+import {useAppDispatch, useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
-import PhoneItem from './components/phone-item';
+import {addToLocalStorage} from '../../../../utils';
+import {setBasketData} from '../../../../../../store/slice/basket-slice/service/basket-slice.ts';
 
 const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: CatalogCallItemProps) => {
   const camerasList = useAppSelector(getCamerasList);
   const currentActiveCard = camerasList.find((item) => item.id === activeCard);
   const focusRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
 
@@ -39,7 +41,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
 
           </div>
           <div className="modal__content">
-            <p className="title title--h4">Свяжитесь со мной</p>
+            <p className="title title--h4">Добавить товар в корзину</p>
             <div className="basket-item basket-item--short">
               <div className="basket-item__img">
                 <picture>
@@ -68,7 +70,18 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
                 </p>
               </div>
             </div>
-            <PhoneItem activeCard={activeCard} handleModalCloseClick={handleModalCloseClick} />
+            <button className="btn btn--purple modal__btn modal__btn--fit-width"
+              type="button"
+              onClick={() => currentActiveCard && dispatch(setBasketData(addToLocalStorage(currentActiveCard)))}
+            >
+              <svg width="24"
+                height="16"
+                aria-hidden="true"
+              >
+                <use xlinkHref="#icon-add-basket"></use>
+              </svg>
+              Добавить в корзину
+            </button>
             <button className="cross-btn"
               type="button"
               aria-label="Закрыть попап"

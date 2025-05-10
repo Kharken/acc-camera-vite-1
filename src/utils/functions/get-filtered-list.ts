@@ -1,6 +1,6 @@
-import {FilterStateProps} from '../pages/catalog-page/types/types.ts';
-import {Camera} from '../store/slice/camera-slice/types/types.ts';
-import {CamerasLevel, CamerasType} from '../pages/catalog-page/components/catalog-filter/const/const.ts';
+import {FilterStateProps} from '../../pages/catalog-page/types/types.ts';
+import {Camera} from '../../store/slice/camera-slice/types/types.ts';
+import {CamerasLevel, CamerasType} from '../../pages/catalog-page/components/catalog-filter/const/const.ts';
 
 export const getFilteredList = (list: Camera[], state: FilterStateProps): Camera[] => {
   let result = [...list];

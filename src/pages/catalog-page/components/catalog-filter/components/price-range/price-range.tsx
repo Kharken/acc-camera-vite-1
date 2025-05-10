@@ -1,7 +1,7 @@
 
 import {useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getActualCamera, getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
-import {getSortedList} from '../../../../../../utils/get-sorted-list.ts';
+import {getSortedList} from '../../../../../../utils/functions/get-sorted-list.ts';
 import {ChangeEvent} from 'react';
 import {PriceRangeProps} from '../../../../types/types.ts';
 
