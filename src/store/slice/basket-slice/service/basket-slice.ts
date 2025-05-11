@@ -16,11 +16,10 @@ const basketSlice = createSlice({
   reducers: {
     setBasketData: (state: BasketState, action: PayloadAction<Camera[]>) => {
       state.basketData = action.payload;
-    },
-    getBasketData: (state: BasketState, action: PayloadAction<Camera[]>) => {
-      state.basketData = action.payload;
+      localStorage.setItem(CAMERA_CART_LOCALSTORAGE_KEY, JSON.stringify(action.payload));
     }
   }
 });
 
-export const {setBasketData, getBasketData} = basketSlice.actions;
+export default basketSlice;
+export const {setBasketData} = basketSlice.actions;
