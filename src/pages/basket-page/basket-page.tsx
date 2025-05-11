@@ -9,6 +9,8 @@ import {CAMERA_CART_LOCALSTORAGE_KEY} from '../../utils/const/const.ts';
 import {getFromLocalStorage} from '../catalog-page/utils';
 import {Camera} from '../../store/slice/camera-slice/types/types.ts';
 import {setBasketData} from '../../store/slice/basket-slice/service/basket-slice.ts';
+import RemoveModalItem from './components/remove-modal-item';
+import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
 
 const BasketPage = () => {
   const dispatch = useAppDispatch();
@@ -25,78 +27,91 @@ const BasketPage = () => {
     window.addEventListener('storage', handleStorageUpdate);
     return () => window.removeEventListener('storage', handleStorageUpdate);
   }, [dispatch]);
-
+  const { activeModal, handleModalCloseClick, handleModalOpenClick} = useMouseModal();
 
   const basketData = getUniqueList(basketStorageData, 'id');
 
   const clickButtonRemoveItemHandler = (id: number) => {
     const updated = basketData.filter((item) => item.id !== id);
-    dispatch(setBasketData(updated)); // Обновит и Redux, и localStorage
+    dispatch(setBasketData(updated));
+    handleModalCloseClick();
   };
+
+
   return (
-    <div className="page-content"
-      data-testid="basket-page-content"
-    >
-      <div className="breadcrumbs">
-        <div className="container">
-          <ul className="breadcrumbs__list">
-            <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link"
-                href="index.html"
-              >Главная
-                <svg width="5"
-                  height="8"
-                  aria-hidden="true"
-                >
-                  <use xlinkHref="#icon-arrow-mini"></use>
-                </svg>
-              </a>
-            </li>
-            <li className="breadcrumbs__item">
-              <a className="breadcrumbs__link"
-                href="catalog.html"
-              >Каталог
-                <svg width="5"
-                  height="8"
-                  aria-hidden="true"
-                >
-                  <use xlinkHref="#icon-arrow-mini"></use>
-                </svg>
-              </a>
-            </li>
-            <li className="breadcrumbs__item">
-              <span className="breadcrumbs__link breadcrumbs__link--active">Корзина</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <section className="basket">
-        <div className="container">
-          <h1 className="title title--h2">Корзина</h1>
-          <ul className="basket__list">
-            {basketData.map((item) => (<BasketItem clickButtonRemoveItemHandler={clickButtonRemoveItemHandler} basketStorageData={basketStorageData} props={item} key={item.id} />))}
-          </ul>
-          <div className="basket__summary">
-            <div className="basket__promo">
-            </div>
-            <div className="basket__summary-order">
-              <p className="basket__summary-item">
-                <span className="basket__summary-text">Всего:</span><span className="basket__summary-value">111 390 ₽</span>
-              </p>
-              <p className="basket__summary-item">
-                <span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">0 ₽</span>
-              </p>
-              <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
-              </p>
-              <button className="btn btn--purple"
-                type="submit"
-              >Оформить заказ
-              </button>
-            </div>
+    <>
+      <div className="page-content"
+        data-testid="basket-page-content"
+      >
+        <div className="breadcrumbs">
+          <div className="container">
+            <ul className="breadcrumbs__list">
+              <li className="breadcrumbs__item">
+                <a className="breadcrumbs__link"
+                  href="index.html"
+                >Главная
+                  <svg width="5"
+                    height="8"
+                    aria-hidden="true"
+                  >
+                    <use xlinkHref="#icon-arrow-mini"></use>
+                  </svg>
+                </a>
+              </li>
+              <li className="breadcrumbs__item">
+                <a className="breadcrumbs__link"
+                  href="catalog.html"
+                >Каталог
+                  <svg width="5"
+                    height="8"
+                    aria-hidden="true"
+                  >
+                    <use xlinkHref="#icon-arrow-mini"></use>
+                  </svg>
+                </a>
+              </li>
+              <li className="breadcrumbs__item">
+                <span className="breadcrumbs__link breadcrumbs__link--active">Корзина</span>
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
-    </div>
+        <section className="basket">
+          <div className="container">
+            <h1 className="title title--h2">Корзина</h1>
+            <ul className="basket__list">
+              {basketData.map((item) => (<BasketItem basketStorageData={basketStorageData} props={item} key={item.id} handleModalOpenClick={handleModalOpenClick} />))}
+            </ul>
+            <div className="basket__summary">
+              <div className="basket__promo">
+              </div>
+              <div className="basket__summary-order">
+                <p className="basket__summary-item">
+                  <span className="basket__summary-text">Всего:</span><span className="basket__summary-value">111 390 ₽</span>
+                </p>
+                <p className="basket__summary-item">
+                  <span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">0 ₽</span>
+                </p>
+                <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
+                </p>
+                <button className="btn btn--purple"
+                  type="submit"
+                >Оформить заказ
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      {activeModal.isModalOpen &&
+        <RemoveModalItem
+          handleModalCloseClick={handleModalCloseClick}
+          isModalOpen={activeModal.isModalOpen}
+          activeCard={activeModal.activeCard}
+          basketData={basketData}
+          clickButtonRemoveItemHandler={clickButtonRemoveItemHandler}
+        />}
+    </>
   );
 };
 

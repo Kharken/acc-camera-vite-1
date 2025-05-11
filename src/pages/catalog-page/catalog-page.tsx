@@ -1,32 +1,15 @@
 import Catalog from './components/catalog';
 import CatalogCallItem from './components/catalog/components/catalog-call-item';
 import {useState} from 'react';
-import {FilterStateProps, InitialModalState} from './types/types.ts';
+import {FilterStateProps} from './types/types.ts';
 import CatalogFilter from './components/catalog-filter';
 import {filterInputChangeHandler} from './utils';
+import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
 
 const CatalogPage = () => {
 
+  const { activeModal, handleModalCloseClick, handleModalOpenClick, handleActiveCardMouseOver} = useMouseModal();
 
-  const initialModalState: InitialModalState = {
-    activeCard: 0,
-    isModalOpen: false,
-  };
-  const [activeModal, setActiveModal] = useState(initialModalState);
-
-  const handleActiveCardMouseOver = (id: number) => {
-    setActiveModal({...activeModal, activeCard: id});
-  };
-
-  const handleModalOpenClick = (id: number) => {
-    setActiveModal({...activeModal, activeCard: id, isModalOpen: true});
-    document.body.classList.add('scroll-lock');
-  };
-
-  const handleModalCloseClick = () => {
-    setActiveModal({...activeModal, activeCard: 0, isModalOpen: false});
-    document.body.classList.remove('scroll-lock');
-  };
 
   const initialFilterState: FilterStateProps = {
     category: '',

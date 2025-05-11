@@ -2,12 +2,11 @@ import {BasketItemType} from '../../types/types.ts';
 import {ChangeEvent, useState} from 'react';
 
 
-const BasketItem = ({props, basketStorageData, clickButtonRemoveItemHandler}: BasketItemType) => {
+const BasketItem = ({props, basketStorageData, handleModalOpenClick}: BasketItemType) => {
   const {name, id, price, vendorCode,type, category, level, previewImgWebp, previewImgWebp2x, previewImg2x, previewImg} = props;
 
   const basketItemData = basketStorageData.filter((item) => item.id === id);
   const initialCountState = basketItemData.length;
-  // TODO: доделать удаление из корзины
   const [value, setValue] = useState(initialCountState);
 
   const increaseCount = () => {
@@ -101,7 +100,7 @@ const BasketItem = ({props, basketStorageData, clickButtonRemoveItemHandler}: Ba
       <button className="cross-btn"
         type="button"
         aria-label="Удалить товар"
-        onClick={() =>clickButtonRemoveItemHandler(id)}
+        onClick={() => handleModalOpenClick(id)}
       >
         <svg width="10"
           height="10"
