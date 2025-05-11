@@ -1,5 +1,6 @@
 import {BasketRemoveModalItemProps} from '../../types/types.ts';
 import {useEffect} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 
 const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basketData, clickButtonRemoveItemHandler}: BasketRemoveModalItemProps) => {
 
@@ -20,6 +21,7 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
   }, [handleModalCloseClick, isModalOpen]);
 
   const currentActiveCard = basketData.find((item) => item.id === activeCard);
+  const location = useLocation();
 
   return (
     <div className="modal is-active">
@@ -66,15 +68,17 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
             >
               Удалить
             </button>
-            <a className="btn btn--transparent modal__btn modal__btn--half-width"
-              href="#"
+            <Link className="btn btn--transparent modal__btn modal__btn--half-width"
+              to={location}
+              onClick={handleModalCloseClick}
             >
               Продолжить покупки
-            </a>
+            </Link>
           </div>
           <button className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
+            onClick={handleModalCloseClick}
           >
             <svg width="10"
               height="10"

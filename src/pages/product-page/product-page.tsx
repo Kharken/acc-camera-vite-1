@@ -13,6 +13,8 @@ import {getReviewList, getReviewLoadingStatus} from '../../store/slice/review-sl
 import Review from './components/review';
 
 import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
+import {setBasketData} from '../../store/slice/basket-slice/service/basket-slice.ts';
+import {addToLocalStorage} from '../catalog-page/utils';
 
 const ProductPage = () => {
   const {id: cameraId} = useParams();
@@ -138,6 +140,7 @@ const ProductPage = () => {
               <p className="product__price"><span className="visually-hidden">Цена:</span>{currentCamera && currentCamera.price} ₽</p>
               <button className="btn btn--purple"
                 type="button"
+                onClick={() => currentCamera && dispatch(setBasketData(addToLocalStorage(currentCamera)))}
               >
                 <svg width="24"
                   height="16"
