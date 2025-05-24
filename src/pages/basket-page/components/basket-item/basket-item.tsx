@@ -1,10 +1,11 @@
+
 import {BasketItemType} from '../../types/types.ts';
 import {ChangeEvent, useState} from 'react';
 import {setBasketData} from '../../../../store/slice/basket-slice/service/basket-slice.ts';
 import {addToLocalStorage} from '../../../catalog-page/utils';
 import {useAppDispatch} from '../../../../app/hooks/hooks.ts';
 import {removeFromLocalStorage} from '../../../catalog-page/utils/remove-from-local-storage.ts';
-
+import {Camera} from '../../../../store/slice/camera-slice/types/types.ts';
 
 const BasketItem = ({props, basketStorageData, handleModalOpenClick}: BasketItemType) => {
   const {name, id, price, vendorCode,type, category, level, previewImgWebp, previewImgWebp2x, previewImg2x, previewImg} = props;
@@ -12,20 +13,20 @@ const BasketItem = ({props, basketStorageData, handleModalOpenClick}: BasketItem
   const dispatch = useAppDispatch();
 
   const basketItemData = basketStorageData.filter((item) => item.id === id);
-  const basketAddData = basketItemData.find((item) => item.id === id);
+  const basketAddData = basketItemData.find((item) => item.id === id) as Camera;
   const initialCountState = basketItemData.length;
   const [value, setValue] = useState(initialCountState);
 
   const increaseCount = () => {
     setValue((prevState) => (prevState + 1));
-    if (basketItemData){
+    if (basketAddData) {
       dispatch(setBasketData(addToLocalStorage(basketAddData)));
     }
   };
 
   const decreaseCount = () => {
     setValue((prevState) => (prevState - 1));
-    if (basketItemData){
+    if (basketAddData) {
       dispatch(setBasketData(removeFromLocalStorage(basketAddData)));
     }
   };
@@ -41,7 +42,6 @@ const BasketItem = ({props, basketStorageData, handleModalOpenClick}: BasketItem
       setValue(99);
     }
   };
-
 
   return (
     <li className="basket-item">
