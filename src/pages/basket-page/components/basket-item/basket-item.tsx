@@ -1,20 +1,33 @@
 import {BasketItemType} from '../../types/types.ts';
 import {ChangeEvent, useState} from 'react';
+import {setBasketData} from '../../../../store/slice/basket-slice/service/basket-slice.ts';
+import {addToLocalStorage} from '../../../catalog-page/utils';
+import {useAppDispatch} from '../../../../app/hooks/hooks.ts';
+import {removeFromLocalStorage} from '../../../catalog-page/utils/remove-from-local-storage.ts';
 
 
 const BasketItem = ({props, basketStorageData, handleModalOpenClick}: BasketItemType) => {
   const {name, id, price, vendorCode,type, category, level, previewImgWebp, previewImgWebp2x, previewImg2x, previewImg} = props;
 
+  const dispatch = useAppDispatch();
+
   const basketItemData = basketStorageData.filter((item) => item.id === id);
+  const basketAddData = basketItemData.find((item) => item.id === id);
   const initialCountState = basketItemData.length;
   const [value, setValue] = useState(initialCountState);
 
   const increaseCount = () => {
     setValue((prevState) => (prevState + 1));
+    if (basketItemData){
+      dispatch(setBasketData(addToLocalStorage(basketAddData)));
+    }
   };
 
   const decreaseCount = () => {
     setValue((prevState) => (prevState - 1));
+    if (basketItemData){
+      dispatch(setBasketData(removeFromLocalStorage(basketAddData)));
+    }
   };
 
   const changeInputHandler = (evt: ChangeEvent<HTMLInputElement>) => {

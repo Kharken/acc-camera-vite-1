@@ -1,8 +1,14 @@
 import {BasketRemoveModalItemProps} from '../../types/types.ts';
 import {useEffect} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {RoutePath} from '../../../../app/route-path/route-path.ts';
+import {setBasketData} from '../../../../store/slice/basket-slice/service/basket-slice.ts';
+import {addToLocalStorage} from '../../../catalog-page/utils';
+import {useAppDispatch} from '../../../../app/hooks/hooks.ts';
+import {removeAllFromLocalStorage} from '../../../catalog-page/utils/remove-all-from-local-storage.ts';
 
 const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basketData, clickButtonRemoveItemHandler}: BasketRemoveModalItemProps) => {
+  const dispatch = useAppDispatch();
 
   // TODO: дубликат кода в модалке
   useEffect(() => {
@@ -21,7 +27,6 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
   }, [handleModalCloseClick, isModalOpen]);
 
   const currentActiveCard = basketData.find((item) => item.id === activeCard);
-  const location = useLocation();
 
   return (
     <div className="modal is-active">
@@ -64,12 +69,15 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
           <div className="modal__buttons">
             <button className="btn btn--purple modal__btn modal__btn--half-width"
               type="button"
-              onClick={() => currentActiveCard && clickButtonRemoveItemHandler(currentActiveCard.id)}
+              onClick={() => {
+                currentActiveCard && clickButtonRemoveItemHandler(currentActiveCard.id);
+                dispatch(setBasketData(removeAllFromLocalStorage(currentActiveCard)));
+              }}
             >
               Удалить
             </button>
             <Link className="btn btn--transparent modal__btn modal__btn--half-width"
-              to={location}
+              to={RoutePath.Index}
               onClick={handleModalCloseClick}
             >
               Продолжить покупки

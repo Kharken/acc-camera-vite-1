@@ -1,5 +1,5 @@
 
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
 import {getBasketCameraList} from '../../store/slice/basket-slice/service/basket-selectors.ts';
@@ -15,6 +15,10 @@ import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
 const BasketPage = () => {
   const dispatch = useAppDispatch();
   const basketStorageData = useAppSelector(getBasketCameraList);
+  const basketTotalPrice = basketStorageData.reduce((acc, item) => acc + item.price, 0) || 0;
+  const totalDiscout = 0;
+
+  console.log(basketTotalPrice);
 
   useEffect(() => {
     const handleStorageUpdate = (e: StorageEvent) => {
@@ -87,12 +91,12 @@ const BasketPage = () => {
               </div>
               <div className="basket__summary-order">
                 <p className="basket__summary-item">
-                  <span className="basket__summary-text">Всего:</span><span className="basket__summary-value">111 390 ₽</span>
+                  <span className="basket__summary-text">Всего:</span><span className="basket__summary-value">{basketTotalPrice} ₽</span>
                 </p>
                 <p className="basket__summary-item">
-                  <span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">0 ₽</span>
+                  <span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">{totalDiscout} ₽</span>
                 </p>
-                <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">111 390 ₽</span>
+                <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">{basketTotalPrice - totalDiscout} ₽</span>
                 </p>
                 <button className="btn btn--purple"
                   type="submit"

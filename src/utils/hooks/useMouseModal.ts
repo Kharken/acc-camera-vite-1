@@ -1,6 +1,7 @@
 import {InitialModalState} from '../../pages/catalog-page/types/types.ts';
 import {useState} from 'react';
 
+
 export const useMouseModal = () => {
   const initialModalState: InitialModalState = {
     activeCard: 0,
@@ -22,5 +23,11 @@ export const useMouseModal = () => {
     document.body.classList.remove('scroll-lock');
   };
 
-  return {activeModal, handleModalCloseClick, handleModalOpenClick, handleActiveCardMouseOver};
+  const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
+    if (evt.key === 'Escape') {
+      handleModalCloseClick();
+    }
+  };
+
+  return {activeModal, handleModalCloseClick, handleModalOpenClick, handleActiveCardMouseOver, handleModalEscapeKeyDown};
 };

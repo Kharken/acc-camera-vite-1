@@ -13,8 +13,8 @@ import {getReviewList, getReviewLoadingStatus} from '../../store/slice/review-sl
 import Review from './components/review';
 
 import { START_REVIEWS_SHOW_COUNT, REVIEWS_SHOW_COUNT_STEP} from './const/const.ts';
-import {setBasketData} from '../../store/slice/basket-slice/service/basket-slice.ts';
-import {addToLocalStorage} from '../catalog-page/utils';
+import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
+import CatalogCallItem from '../catalog-page/components/catalog/components/catalog-call-item';
 
 const ProductPage = () => {
   const {id: cameraId} = useParams();
@@ -28,6 +28,7 @@ const ProductPage = () => {
   const isReviewLoading = useAppSelector(getReviewLoadingStatus);
 
   const isLoading = isCurrentCameraLoading || isReviewLoading;
+  const { activeModal, handleModalCloseClick, handleModalOpenClick} = useMouseModal();
 
   useEffect(() => {
     if (cameraId){
@@ -53,7 +54,6 @@ const ProductPage = () => {
   if (isLoading) {
     return <Loader/>;
   }
-
 
   return (
     <div className="page-content" data-testid="product-page-content">
@@ -140,7 +140,7 @@ const ProductPage = () => {
               <p className="product__price"><span className="visually-hidden">Цена:</span>{currentCamera && currentCamera.price} ₽</p>
               <button className="btn btn--purple"
                 type="button"
-                onClick={() => currentCamera && dispatch(setBasketData(addToLocalStorage(currentCamera)))}
+                onClick={() => cameraId && handleModalOpenClick(+cameraId)}
               >
                 <svg width="24"
                   height="16"
@@ -193,6 +193,12 @@ const ProductPage = () => {
           </div>
         </section>
       </div>
+      {activeModal.isModalOpen &&
+        <CatalogCallItem
+          handleModalCloseClick={handleModalCloseClick}
+          isModalOpen={activeModal.isModalOpen}
+          activeCard={activeModal.activeCard}
+        />}
       <div className="page-content__section">
         <section className="review-block">
           <div className="container">

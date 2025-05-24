@@ -1,11 +1,12 @@
 import {FooterNavMenuItemProps} from '../../types/types.ts';
+import {Link} from 'react-router-dom';
 
 const FooterNavMenuItem = ({footerMenuListItem}: FooterNavMenuItemProps) => (
   <li className="footer__item" data-testid="footer-nav-menu-item">
-    <a className="link"
-      href="#"
+    <Link className="link"
+      to="/"
     >{footerMenuListItem}
-    </a>
+    </Link>
   </li>
 );
 

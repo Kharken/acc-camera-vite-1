@@ -1,22 +1,23 @@
 import ReactFocusLock from 'react-focus-lock';
 import {CatalogCallItemProps} from '../product-list/components/product-card/types/types.ts';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 import {addToLocalStorage} from '../../../../utils';
 import {setBasketData} from '../../../../../../store/slice/basket-slice/service/basket-slice.ts';
+import CatalogAddItem from '../catalog-add-item';
 
 const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: CatalogCallItemProps) => {
   const camerasList = useAppSelector(getCamerasList);
   const currentActiveCard = camerasList.find((item) => item.id === activeCard);
-  const focusRef = useRef<HTMLInputElement>(null);
+
   const dispatch = useAppDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
 
-    if (isModalOpen && focusRef.current) {
-      focusRef.current.focus();
-    }
 
     const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
@@ -29,11 +30,11 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
     return () => {
       document.removeEventListener('keydown', handleModalEscapeKeyDown);
     };
-  }, [handleModalCloseClick, isModalOpen, focusRef]);
+  }, [handleModalCloseClick, isModalOpen]);
 
   return (
     <ReactFocusLock>
-      <div className="modal is-active" data-testid="modal-opened">
+      <div className={isActive ? 'modal is-active' : 'modal'} data-testid="modal-opened">
         <div className="modal__wrapper">
           <div className="modal__overlay"
             onClick={handleModalCloseClick}
@@ -72,7 +73,11 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
             </div>
             <button className="btn btn--purple modal__btn modal__btn--fit-width"
               type="button"
-              onClick={() => currentActiveCard && dispatch(setBasketData(addToLocalStorage(currentActiveCard)))}
+              onClick={() => {
+                setIsActive(!isActive);
+                setIsOpen(!isOpen);
+                return currentActiveCard && dispatch(setBasketData(addToLocalStorage(currentActiveCard)));
+              }}
             >
               <svg width="24"
                 height="16"
@@ -97,6 +102,7 @@ const CatalogCallItem = ({handleModalCloseClick, isModalOpen, activeCard}: Catal
           </div>
         </div>
       </div>
+      {isOpen && <CatalogAddItem isOpen={isOpen} setIsOpen={setIsOpen}/>}
     </ReactFocusLock>
   );
 };
