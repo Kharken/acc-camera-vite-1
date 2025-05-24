@@ -6,6 +6,7 @@ import {setBasketData} from '../../../../store/slice/basket-slice/service/basket
 import {useAppDispatch} from '../../../../app/hooks/hooks.ts';
 import {removeAllFromLocalStorage} from '../../../catalog-page/utils/remove-all-from-local-storage.ts';
 import {Camera} from '../../../../store/slice/camera-slice/types/types.ts';
+import ShortBasketItem from '../short-basket-item/short-basket-item.tsx';
 
 const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basketData, clickButtonRemoveItemHandler}: BasketRemoveModalItemProps) => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,9 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
   }, [handleModalCloseClick, isModalOpen]);
 
   const currentActiveCard = basketData.find((item) => item.id === activeCard) as Camera;
+  if (!currentActiveCard) {
+    return null;
+  }
 
   return (
     <div className="modal is-active">
@@ -38,39 +42,12 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
         </div>
         <div className="modal__content">
           <p className="title title--h4">Удалить этот товар?</p>
-          <div className="basket-item basket-item--short">
-            <div className="basket-item__img">
-              <picture>
-                <source type="image/webp"
-                  srcSet={currentActiveCard && `./${currentActiveCard.previewImgWebp}, ../${currentActiveCard.previewImgWebp2x}`}
-                />
-                <img src={currentActiveCard && currentActiveCard.previewImg}
-                  srcSet={currentActiveCard && currentActiveCard.previewImg2x}
-                  width="140"
-                  height="120"
-                  alt={currentActiveCard && currentActiveCard.name}
-                />
-              </picture>
-            </div>
-            <div className="basket-item__description">
-              <p className="basket-item__title">{currentActiveCard && currentActiveCard.name}</p>
-              <ul className="basket-item__list">
-                <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span>
-                  <span className="basket-item__number">{currentActiveCard && currentActiveCard.vendorCode}2</span>
-                </li>
-                <li className="basket-item__list-item">{currentActiveCard && currentActiveCard.type}</li>
-                <li className="basket-item__list-item">{currentActiveCard && currentActiveCard.level} уровень</li>
-              </ul>
-              <p className="basket-item__price">
-                <span className="visually-hidden">Цена:</span>{currentActiveCard && currentActiveCard.price} ₽
-              </p>
-            </div>
-          </div>
+          <ShortBasketItem camera={currentActiveCard} />
           <div className="modal__buttons">
             <button className="btn btn--purple modal__btn modal__btn--half-width"
               type="button"
               onClick={() => {
-                currentActiveCard && clickButtonRemoveItemHandler(currentActiveCard.id);
+                clickButtonRemoveItemHandler(currentActiveCard.id);
                 dispatch(setBasketData(removeAllFromLocalStorage(currentActiveCard)));
               }}
             >
