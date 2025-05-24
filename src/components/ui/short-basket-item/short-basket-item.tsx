@@ -1,11 +1,7 @@
 
-import { Camera } from '../../../store/slice/camera-slice/types/types';
+import { ShortBasketItemProps } from './types/types';
 
-type ShortBasketItemProps = {
-  camera: Camera;
-}
-
-const ShortBasketItem = ({ camera }: ShortBasketItemProps) => {
+function ShortBasketItem({ camera }: ShortBasketItemProps) {
   const { name, vendorCode, type, category, level, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x } = camera;
 
   return (
@@ -29,6 +25,6 @@ const ShortBasketItem = ({ camera }: ShortBasketItemProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default ShortBasketItem;

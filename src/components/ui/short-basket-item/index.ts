@@ -1,4 +1,3 @@
 
-import ShortBasketItem from './short-basket-item';
-
-export default ShortBasketItem;
+export { default } from './short-basket-item';
+export * from './types/types';
