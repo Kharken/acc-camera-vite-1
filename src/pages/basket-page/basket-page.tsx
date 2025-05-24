@@ -1,5 +1,6 @@
 
 import {useEffect, useState} from 'react';
+import {calculateDiscount} from '../../utils/functions/calculate-discount';
 
 import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
 import {getBasketCameraList} from '../../store/slice/basket-slice/service/basket-selectors.ts';
@@ -16,9 +17,12 @@ const BasketPage = () => {
   const dispatch = useAppDispatch();
   const basketStorageData = useAppSelector(getBasketCameraList);
   const basketTotalPrice = basketStorageData.reduce((acc, item) => acc + item.price, 0) || 0;
-  const totalDiscout = 0;
-
-  console.log(basketTotalPrice);
+  const totalItems = basketStorageData.length;
+  const discount = calculateDiscount({
+    totalItems,
+    totalPrice: basketTotalPrice,
+    isPromo: false
+  });
 
   useEffect(() => {
     const handleStorageUpdate = (e: StorageEvent) => {
@@ -94,9 +98,17 @@ const BasketPage = () => {
                   <span className="basket__summary-text">Всего:</span><span className="basket__summary-value">{basketTotalPrice} ₽</span>
                 </p>
                 <p className="basket__summary-item">
-                  <span className="basket__summary-text">Скидка:</span><span className="basket__summary-value basket__summary-value--bonus">{totalDiscout} ₽</span>
+                  <span className="basket__summary-text">Скидка:</span>
+                  <span className={`basket__summary-value ${discount > 0 ? 'basket__summary-value--bonus' : ''}`}>
+                    {discount.toFixed(0)} ₽
+                  </span>
                 </p>
-                <p className="basket__summary-item"><span className="basket__summary-text basket__summary-text--total">К оплате:</span><span className="basket__summary-value basket__summary-value--total">{basketTotalPrice - totalDiscout} ₽</span>
+                <p className="basket__summary-item">
+                  <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
+                  <span className="basket__summary-value basket__summary-value--total">
+                    {(basketTotalPrice - discount).toFixed(0)} ₽
+                  </span>
+                </p>
                 </p>
                 <button className="btn btn--purple"
                   type="submit"
