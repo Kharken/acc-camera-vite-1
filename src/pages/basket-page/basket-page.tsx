@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { calculateDiscount } from '../../utils/functions/calculate-discount';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks.ts';

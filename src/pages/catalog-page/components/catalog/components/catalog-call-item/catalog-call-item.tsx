@@ -1,6 +1,6 @@
 import ReactFocusLock from 'react-focus-lock';
 import {CatalogCallItemProps} from '../product-list/components/product-card/types/types.ts';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../../../../app/hooks/hooks.ts';
 import {getCamerasList} from '../../../../../../store/slice/camera-slice/service/camera-selectors.ts';
 import {addToLocalStorage} from '../../../../utils';

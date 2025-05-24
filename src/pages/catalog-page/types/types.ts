@@ -52,6 +52,10 @@ export type PriceRangeProps = {
   setFilter: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }
 
+export type CatalogAddItemProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export type FilterInputChangeHandler = (value: React.SetStateAction<FilterStateProps>) => void;
 

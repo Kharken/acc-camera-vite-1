@@ -3,9 +3,9 @@ import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {RoutePath} from '../../../../app/route-path/route-path.ts';
 import {setBasketData} from '../../../../store/slice/basket-slice/service/basket-slice.ts';
-import {addToLocalStorage} from '../../../catalog-page/utils';
 import {useAppDispatch} from '../../../../app/hooks/hooks.ts';
 import {removeAllFromLocalStorage} from '../../../catalog-page/utils/remove-all-from-local-storage.ts';
+import {Camera} from '../../../../store/slice/camera-slice/types/types.ts';
 
 const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basketData, clickButtonRemoveItemHandler}: BasketRemoveModalItemProps) => {
   const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
     };
   }, [handleModalCloseClick, isModalOpen]);
 
-  const currentActiveCard = basketData.find((item) => item.id === activeCard);
+  const currentActiveCard = basketData.find((item) => item.id === activeCard) as Camera;
 
   return (
     <div className="modal is-active">

@@ -1,9 +1,10 @@
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {RoutePath} from '../../../../../../app/route-path/route-path.ts';
+import {CatalogAddItemProps} from '../../../../types/types.ts';
 
 
-const CatalogAddItem = ({isOpen, setIsOpen}) => {
+const CatalogAddItem = ({isOpen, setIsOpen}: CatalogAddItemProps) => {
   const navigate = useNavigate();
   useEffect(() => {
 
