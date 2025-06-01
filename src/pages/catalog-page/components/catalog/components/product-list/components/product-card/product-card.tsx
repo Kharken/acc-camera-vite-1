@@ -1,8 +1,17 @@
 import {ProductCardProps} from './types/types.ts';
 import {Link} from 'react-router-dom';
+import {useAppSelector} from '../../../../../../../../app/hooks/hooks.ts';
+import {getBasketCameraList} from '../../../../../../../../store/slice/basket-slice/service/basket-selectors.ts';
+import BuyButton from './components/buy-button';
+import InBasketButton from './components/in-basket-button';
 
 const ProductCard = ({props, handleModalOpenClick, handleActiveCardMouseOver}: ProductCardProps) => {
   const {name, price, rating, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, reviewCount, id: cameraId} = props;
+
+  const basketStorageData = useAppSelector(getBasketCameraList);
+  const isCameraInBasket = basketStorageData.findIndex((camera) => camera.id === cameraId) !== -1;
+
+  console.log(basketStorageData);
 
   return (
     <div className="product-card"
@@ -62,12 +71,7 @@ const ProductCard = ({props, handleModalOpenClick, handleActiveCardMouseOver}: P
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn"
-          type="button"
-          onClick={() => handleModalOpenClick(cameraId)}
-          data-testid="modal-open-button"
-        >Купить
-        </button>
+        {isCameraInBasket ? <InBasketButton/> : <BuyButton handleModalOpenClick={handleModalOpenClick} cameraId={cameraId}/>}
         <Link className="btn btn--transparent"
           to={`camera/${cameraId}`}
         >Подробнее

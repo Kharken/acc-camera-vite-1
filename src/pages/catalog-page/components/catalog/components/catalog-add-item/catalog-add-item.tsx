@@ -22,7 +22,7 @@ const CatalogAddItem = ({isOpen, setIsOpen}: CatalogAddItemProps) => {
   }, [setIsOpen, isOpen]);
 
   return (
-    <div className={isOpen ? "modal is-active modal--narrow" : "modal modal--narrow"}>
+    <div className={isOpen ? 'modal is-active modal--narrow' : 'modal modal--narrow'}>
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
         <div className="modal__content">
@@ -37,26 +37,28 @@ const CatalogAddItem = ({isOpen, setIsOpen}: CatalogAddItemProps) => {
           <div className="modal__buttons">
             <a className="btn btn--transparent modal__btn"
               href="#"
-               onClick={() => {
-                 setIsOpen(false);
-                 document.body.classList.remove('scroll-lock');
-               }}
+              onClick={() => {
+                setIsOpen(false);
+                document.body.classList.remove('scroll-lock');
+              }}
             >
               Продолжить покупки
             </a>
             <button className="btn btn--purple modal__btn modal__btn--fit-width"
-            onClick={() => {
-              navigate(`/${RoutePath.Basket}`);
-              document.body.classList.remove('scroll-lock');
-            }}>Перейти в корзину</button>
+              onClick={() => {
+                navigate(`/${RoutePath.Basket}`);
+                document.body.classList.remove('scroll-lock');
+              }}
+            >Перейти в корзину
+            </button>
           </div>
           <button className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
-                  onClick={() => {
-                    setIsOpen(false);
-                    document.body.classList.remove('scroll-lock');
-                  }}
+            onClick={() => {
+              setIsOpen(false);
+              document.body.classList.remove('scroll-lock');
+            }}
           >
             <svg width="10"
               height="10"
