@@ -2,23 +2,21 @@
 type CalculateDiscountParams = {
   totalItems: number;
   totalPrice: number;
-  isPromo?: boolean;
+  promoItems: number;
 };
 
-export const calculateDiscount = ({totalItems, totalPrice, isPromo = false}: CalculateDiscountParams): number => {
-  if (isPromo) {
-    return 0;
-  }
+export const calculateDiscount = ({totalItems, promoItems, totalPrice}: CalculateDiscountParams): number => {
 
   let baseDiscount = 0;
+  const discountedItems = totalItems - promoItems;
 
-  if (totalItems === 2) {
+  if (discountedItems === 2) {
     baseDiscount = 3;
-  } else if (totalItems >= 3 && totalItems <= 5) {
+  } else if (discountedItems >= 3 && discountedItems <= 5) {
     baseDiscount = 5;
-  } else if (totalItems >= 6 && totalItems <= 10) {
+  } else if (discountedItems >= 6 && discountedItems <= 10) {
     baseDiscount = 10;
-  } else if (totalItems > 10) {
+  } else if (discountedItems > 10) {
     baseDiscount = 15;
   }
 

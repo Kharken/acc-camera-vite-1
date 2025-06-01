@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { calculateDiscount } from '../../utils/functions/calculate-discount';
+import {getPromoItemsCount} from '../../utils/functions/get-promo-items-count.ts';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks.ts';
 import { getBasketCameraList } from '../../store/slice/basket-slice/service/basket-selectors.ts';
@@ -11,18 +12,24 @@ import { Camera } from '../../store/slice/camera-slice/types/types.ts';
 import { setBasketData } from '../../store/slice/basket-slice/service/basket-slice.ts';
 import RemoveModalItem from './components/remove-modal-item';
 import { useMouseModal } from '../../utils/hooks/useMouseModal.ts';
+import {getPromoList} from '../../store/slice/promo-slice/service/promo-selectors.ts';
 
 const BasketPage = () => {
   const dispatch = useAppDispatch();
   const basketStorageData = useAppSelector(getBasketCameraList);
+  const promoList = useAppSelector(getPromoList);
+
   const basketTotalPrice =
     basketStorageData.reduce((acc, item) => acc + item.price, 0) || 0;
   const totalItems = basketStorageData.length;
+  const promoItemsCount = getPromoItemsCount(basketStorageData, promoList);
+
   const discount = calculateDiscount({
     totalItems,
     totalPrice: basketTotalPrice,
-    isPromo: false,
+    promoItems: promoItemsCount,
   });
+
 
   useEffect(() => {
     const handleStorageUpdate = (e: StorageEvent) => {

@@ -5,6 +5,7 @@ import {ApiRoutes} from '../../../api/api-routes.ts';
 import {toast} from 'react-toastify';
 import {ReviewType} from '../../slice/review-slice/types/types.ts';
 import {OrderType} from '../types/types.ts';
+import {Promo} from '../../slice/promo-slice/types/types.ts';
 
 const api = createAPI();
 
@@ -55,5 +56,18 @@ export const postOrderAction = createAsyncThunk<void, OrderType>(
     } catch(error) {
       toast.warn('Error posting order');
     }
+  }
+);
+
+export const fetchPromoListData = createAsyncThunk<Promo[], undefined>(
+  'promo/fetchPromoListData',
+  async (): Promise<Promo[]> => {
+    const {data} = await api.get<Promo[]>(ApiRoutes.PROMO);
+    try {
+      return data;
+    } catch(error) {
+      toast.warn('Error fetching promo');
+    }
+    return data;
   }
 );

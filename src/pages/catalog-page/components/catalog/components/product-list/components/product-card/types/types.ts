@@ -38,3 +38,8 @@ export type ProductListProps = {
   handleActiveCardMouseOver: (id: number) => void;
   sortedCamerasList: Camera[];
 }
+
+export type BuyButtonProps = {
+  handleModalOpenClick: (id: number) => void;
+  cameraId: number;
+}

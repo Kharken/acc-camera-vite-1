@@ -5,9 +5,10 @@ import App from './app';
 import {store} from './store';
 import {Provider} from 'react-redux';
 import {ToastContainer} from 'react-toastify';
-import {fetchCameraListData} from './store/service/api-action/api-action.ts';
+import {fetchCameraListData, fetchPromoListData} from './store/service/api-action/api-action.ts';
 
 store.dispatch(fetchCameraListData());
+store.dispatch(fetchPromoListData());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
