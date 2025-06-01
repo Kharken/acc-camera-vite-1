@@ -11,17 +11,17 @@ const BasketIcon = () => {
 
   return (
     <Link className="header__basket-link"
-          to={RoutePath.Basket}
+      to={RoutePath.Basket}
     >
       <svg width="16"
-           height="16"
-           aria-hidden="true"
+        height="16"
+        aria-hidden="true"
       >
         <use xlinkHref="#icon-basket"></use>
       </svg>
       <span className={basketCountClassname}>{basketStorageData.length}</span>
     </Link>
-  )
+  );
 };
 
 export default BasketIcon;

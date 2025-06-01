@@ -1,20 +1,32 @@
-import { useEffect } from 'react';
-import { calculateDiscount } from '../../utils/functions/calculate-discount';
+import {useEffect} from 'react';
+import {calculateDiscount} from '../../utils/functions/calculate-discount';
 import {getPromoItemsCount} from '../../utils/functions/get-promo-items-count.ts';
 
-import { useAppDispatch, useAppSelector } from '../../app/hooks/hooks.ts';
-import { getBasketCameraList } from '../../store/slice/basket-slice/service/basket-selectors.ts';
+import {useAppDispatch, useAppSelector} from '../../app/hooks/hooks.ts';
+import {getBasketCameraList} from '../../store/slice/basket-slice/service/basket-selectors.ts';
 import BasketItem from './components/basket-item';
-import { getUniqueList } from '../../utils/functions/get-unique-list.ts';
-import { CAMERA_CART_LOCALSTORAGE_KEY } from '../../utils/const/const.ts';
-import { getFromLocalStorage } from '../catalog-page/utils';
-import { Camera } from '../../store/slice/camera-slice/types/types.ts';
-import { setBasketData } from '../../store/slice/basket-slice/service/basket-slice.ts';
+import {getUniqueList} from '../../utils/functions/get-unique-list.ts';
+import {CAMERA_CART_LOCALSTORAGE_KEY} from '../../utils/const/const.ts';
+import {getFromLocalStorage} from '../catalog-page/utils';
+import {Camera} from '../../store/slice/camera-slice/types/types.ts';
+import {setBasketData} from '../../store/slice/basket-slice/service/basket-slice.ts';
 import RemoveModalItem from './components/remove-modal-item';
-import { useMouseModal } from '../../utils/hooks/useMouseModal.ts';
+import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
 import {getPromoList} from '../../store/slice/promo-slice/service/promo-selectors.ts';
+import {postOrderAction} from '../../store/service/api-action/api-action.ts';
+
+import {Link, useNavigate} from 'react-router-dom';
+import { getOrderLoading, getOrderError, getOrderSuccess } from '../../store/slice/order-slice/service/order-selectors.ts';
+import { resetOrderState} from '../../store/slice/order-slice/service/order-slice.ts';
+import SuccessModalItem from './components/success-modal-item';
+import ErrorModalItem from './components/error-modal-item';
 
 const BasketPage = () => {
+  const isLoading = useAppSelector(getOrderLoading);
+  const isSuccess = useAppSelector(getOrderSuccess);
+  const error = useAppSelector(getOrderError);
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
   const basketStorageData = useAppSelector(getBasketCameraList);
   const promoList = useAppSelector(getPromoList);
@@ -30,6 +42,7 @@ const BasketPage = () => {
     promoItems: promoItemsCount,
   });
 
+  const cameraIdList = basketStorageData.map((item) => item.id);
 
   useEffect(() => {
     const handleStorageUpdate = (e: StorageEvent) => {
@@ -44,7 +57,7 @@ const BasketPage = () => {
     window.addEventListener('storage', handleStorageUpdate);
     return () => window.removeEventListener('storage', handleStorageUpdate);
   }, [dispatch]);
-  const { activeModal, handleModalCloseClick, handleModalOpenClick } =
+  const {activeModal, handleModalCloseClick, handleModalOpenClick} =
     useMouseModal();
 
   const basketData = getUniqueList(basketStorageData, 'id');
@@ -55,27 +68,46 @@ const BasketPage = () => {
     handleModalCloseClick();
   };
 
+  const handleOrderSubmit = () => {
+    dispatch(postOrderAction({
+      coupon: null,
+      camerasIds: cameraIdList,
+    }));
+  };
+
   return (
     <>
-      <div className="page-content" data-testid="basket-page-content">
+      <div className="page-content"
+        data-testid="basket-page-content"
+      >
         <div className="breadcrumbs">
           <div className="container">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href="index.html">
+                <Link className="breadcrumbs__link"
+                  to="/"
+                >
                   Главная
-                  <svg width="5" height="8" aria-hidden="true">
+                  <svg width="5"
+                    height="8"
+                    aria-hidden="true"
+                  >
                     <use xlinkHref="#icon-arrow-mini"></use>
                   </svg>
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href="catalog.html">
+                <Link className="breadcrumbs__link"
+                  to="/"
+                >
                   Каталог
-                  <svg width="5" height="8" aria-hidden="true">
+                  <svg width="5"
+                    height="8"
+                    aria-hidden="true"
+                  >
                     <use xlinkHref="#icon-arrow-mini"></use>
                   </svg>
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link breadcrumbs__link--active">
@@ -124,9 +156,33 @@ const BasketPage = () => {
                   </span>
                 </p>
 
-                <button className="btn btn--purple" type="submit">
-                  Оформить заказ
+                <button className="btn btn--purple"
+                  type="button"
+                  disabled={basketStorageData.length === 0 || isLoading}
+                  onClick={handleOrderSubmit}
+                >
+                  {isLoading ? 'Оформление...' : 'Оформить заказ'}
                 </button>
+                {isSuccess && (
+                  <SuccessModalItem
+                    onClose={() => {
+                      dispatch(resetOrderState());
+                      dispatch(setBasketData([])); // очистка корзины
+                      navigate('/');
+                    }}
+                  />
+                )}
+
+                {error && (
+                  <ErrorModalItem
+                    message={error}
+                    onClose={() => {
+                      dispatch(resetOrderState());
+                      navigate('/');
+                    }}
+                  />
+                )}
+
               </div>
             </div>
           </div>

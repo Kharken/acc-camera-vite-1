@@ -3,4 +3,5 @@ export enum Namespace {
   Basket = 'Basket',
   Review = 'Review',
   Promo = 'Promo',
+  Order = 'Order',
 }

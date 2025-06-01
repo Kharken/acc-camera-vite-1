@@ -11,8 +11,6 @@ const ProductCard = ({props, handleModalOpenClick, handleActiveCardMouseOver}: P
   const basketStorageData = useAppSelector(getBasketCameraList);
   const isCameraInBasket = basketStorageData.findIndex((camera) => camera.id === cameraId) !== -1;
 
-  console.log(basketStorageData);
-
   return (
     <div className="product-card"
       onMouseEnter={() => handleActiveCardMouseOver(cameraId)}

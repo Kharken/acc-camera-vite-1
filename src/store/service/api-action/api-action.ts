@@ -47,17 +47,17 @@ export const fetchReviewData = createAsyncThunk<ReviewType[] | undefined, string
   }
 );
 
-export const postOrderAction = createAsyncThunk<void, OrderType>(
+export const postOrderAction = createAsyncThunk<void, OrderType, { rejectValue: string }>(
   'order/postOrder',
-  async (requestData: OrderType): Promise<void> => {
-    const {data} = await api.post<void>(ApiRoutes.ORDERS, requestData);
-    try{
-      return data;
-    } catch(error) {
-      toast.warn('Error posting order');
+  async (requestData: OrderType, { rejectWithValue }) => {
+    try {
+      await api.post(ApiRoutes.ORDERS, requestData);
+    } catch (error) {
+      return rejectWithValue('Не удалось оформить заказ. Попробуйте снова.');
     }
   }
 );
+
 
 export const fetchPromoListData = createAsyncThunk<Promo[], undefined>(
   'promo/fetchPromoListData',

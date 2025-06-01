@@ -2,8 +2,6 @@ import {ChangeEvent} from 'react';
 import {CamerasCategory, CamerasFilterGroups} from '../components/catalog-filter/const/const.ts';
 import {EventHandler, FilterInputChangeHandler, FilterStateProps} from '../types/types.ts';
 
-
-// TODO - переписать на useReducer
 export const filterInputChangeHandler = (setFn: FilterInputChangeHandler): EventHandler => function (evt: ChangeEvent<HTMLInputElement>): void {
   const {value, checked, dataset, type, name} = evt.target;
   if (type === 'radio') {

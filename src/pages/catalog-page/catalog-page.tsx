@@ -5,6 +5,7 @@ import {FilterStateProps} from './types/types.ts';
 import CatalogFilter from './components/catalog-filter';
 import {filterInputChangeHandler} from './utils';
 import {useMouseModal} from '../../utils/hooks/useMouseModal.ts';
+import {Link} from 'react-router-dom';
 
 const CatalogPage = () => {
 
@@ -61,8 +62,8 @@ const CatalogPage = () => {
           <div className="container">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link"
-                  href="index.html"
+                <Link className="breadcrumbs__link"
+                  to="/"
                 >Главная
                   <svg width="5"
                     height="8"
@@ -70,7 +71,7 @@ const CatalogPage = () => {
                   >
                     <use xlinkHref="#icon-arrow-mini"></use>
                   </svg>
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>

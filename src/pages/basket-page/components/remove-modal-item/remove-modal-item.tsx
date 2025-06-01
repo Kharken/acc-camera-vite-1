@@ -10,7 +10,6 @@ import {Camera} from '../../../../store/slice/camera-slice/types/types.ts';
 const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basketData, clickButtonRemoveItemHandler}: BasketRemoveModalItemProps) => {
   const dispatch = useAppDispatch();
 
-  // TODO: дубликат кода в модалке
   useEffect(() => {
 
     const handleModalEscapeKeyDown = (evt: KeyboardEvent) => {
@@ -70,9 +69,12 @@ const RemoveModalItem = ({handleModalCloseClick, isModalOpen, activeCard, basket
             <button className="btn btn--purple modal__btn modal__btn--half-width"
               type="button"
               onClick={() => {
-                currentActiveCard && clickButtonRemoveItemHandler(currentActiveCard.id);
-                dispatch(setBasketData(removeAllFromLocalStorage(currentActiveCard)));
+                if (currentActiveCard) {
+                  clickButtonRemoveItemHandler(currentActiveCard.id);
+                  dispatch(setBasketData(removeAllFromLocalStorage(currentActiveCard)));
+                }
               }}
+
             >
               Удалить
             </button>
